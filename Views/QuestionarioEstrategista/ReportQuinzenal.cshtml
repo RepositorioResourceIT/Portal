@@ -1,0 +1,295 @@
+﻿@model Itau.PO.UI.MVC.ViewModel.PostViewModel
+
+@{
+    ViewBag.Title = "Posts";
+}
+
+@section css{
+    <style>
+        .bordaArredondada {
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .textoBranco {
+            color: white;
+        }
+
+        .textoPreto {
+            color: black;
+        }
+
+        .textoBranco, .textoPreto {
+            font-weight: 600;
+        }
+
+        .divCinza {
+            background-color: lightgray;
+        }
+
+        .divVerde {
+            background-color: forestgreen;
+        }
+
+        .divAmarela {
+            background-color: goldenrod;
+        }
+
+        .divVermelha {
+            background-color: red;
+        }
+
+        .divBranca {
+            background-color: white;
+            border-color: black;
+        }
+
+        .iCinza {
+            color: lightgray;
+        }
+
+        .iVerde {
+            color: forestgreen;
+        }
+
+        .iAmarela {
+            color: goldenrod;
+        }
+
+        .iVermelha {
+            color: red;
+        }
+
+        .iBranca {
+            color: white;
+            border-style: solid;
+            border: 1px;
+            box-shadow: 2px 2px 2px gray;
+        }
+
+        .divCinza, .divVerde, .divAmarela, .divVermelha, .divBranca {
+            border: 1px;
+            border-style: solid;
+            box-shadow: 2px 2px 2px gray;
+        }
+
+        .divCinza, .divVerde, .divAmarela, .divVermelha {
+            border-color: white;
+        }
+    </style>
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-5">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Quadro de Ações - 2019</h4>
+
+                    <h5 class="text-center">Total: 12</h5>
+
+                    <div class="row justify-content-center">
+                        <div class="col-2">
+                            <div class="divCinza text-center bordaArredondada textoBranco">
+                                <span>0</span>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="divVerde text-center bordaArredondada textoBranco">
+                                <span>1</span>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="divAmarela text-center bordaArredondada textoBranco">
+                                <span>0</span>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="divVermelha text-center bordaArredondada textoBranco">
+                                <span>5</span>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="divBranca text-center bordaArredondada textoPreto" style="position: relative;">
+                                <div style="position: absolute; left: 25px; top: -5px; color: #67757c;">
+                                    <i class="fa fa-check"></i>
+                                </div>
+
+                                <span>6</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="col-12">
+                                <span><i class="fa fa-square m-r-5 iCinza"></i>A iniciar</span>
+                            </div>
+
+                            <div class="col-12">
+                                <span><i class="fa fa-square m-r-5 iVerde"></i>Em andamento</span>
+                            </div>
+
+                            <div class="col-12">
+                                <span><i class="fa fa-square m-r-5 iAmarela"></i>Risco de atraso</span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="col-12">
+                                <span><i class="fa fa-square m-r-5 iVermelha"></i>Atrasado</span>
+                            </div>
+                            <div class="col-12">
+                                <span><i class="fa fa-check m-r-5"></i>Concluído</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Status geral</h4>
+                    
+                    <div class="row">
+                        <ul>
+                            <li>
+                                Alinhamentos reunião de Governança 21/12
+
+                                <ul>
+                                    <li>
+                                        Obrigatório anexar ao PSAC o "De Acordo" do Jurídico e Operação na hora da abertura da ocorrência
+                                    </li>
+                                    <li>
+                                        Data de subida para produção será informada pela operação e compartilhada com os envolvidos no fluxo
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table id="tbPosts" class="table table-hover table-striped table-bordered tabela" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Questionário</th>
+                                <th>Carteira</th>
+                                <th>Assunto</th>
+                                <th>Abertura</th>
+                                <th>Implantação</th>
+                                <th>Risco</th>
+                                <th>Ficha</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Código</th>
+                                <th>Questionário</th>
+                                <th>Carteira</th>
+                                <th>Assunto</th>
+                                <th>Abertura</th>
+                                <th>Implantação</th>
+                                <th>Risco</th>
+                                <th>Ficha</th>
+                                <th>Status</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td>7783</td>
+                                <td>Exemplo 1</td>
+                                <td>Carteira 1</td>
+                                <td>Assunto 1</td>
+                                <td>XX/XX/XXXX</td>
+                                <td>XX/XX/XXXX</td>
+                                <td><span><i class="fa fa-square m-r-5 iVermelha"></i>Atrasado</span></td>
+                                <td class="text-center"><i class="fa fa-info-circle m-r-5 iVermelha"></i></td>
+                                <td>Homologação</td>
+                            </tr>
+                            <tr>
+                                <td>7793</td>
+                                <td>Exemplo 2</td>
+                                <td>Carteira 2</td>
+                                <td>Assunto 2</td>
+                                <td>XX/XX/XXXX</td>
+                                <td>XX/XX/XXXX</td>
+                                <td><span><i class="fa fa-square m-r-5 iVermelha"></i>Atrasado</span></td>
+                                <td class="text-center"><i class="fa fa-info-circle m-r-5 iVermelha"></i></td>
+                                <td>Homologação</td>
+                            </tr>
+                            <tr>
+                                <td>7800</td>
+                                <td>Exemplo 3</td>
+                                <td>Carteira 3</td>
+                                <td>Assunto 3</td>
+                                <td>XX/XX/XXXX</td>
+                                <td>XX/XX/XXXX</td>
+                                <td><span><i class="fa fa-square m-r-5 iVermelha"></i>Atrasado</span></td>
+                                <td></td>
+                                <td>Homologação</td>
+                            </tr>
+                            <tr>
+                                <td>7812</td>
+                                <td>Exemplo 4</td>
+                                <td>Carteira 4</td>
+                                <td>Assunto 4</td>
+                                <td>XX/XX/XXXX</td>
+                                <td>XX/XX/XXXX</td>
+                                <td><span><i class="fa fa-square m-r-5 iVermelha"></i>Atrasado</span></td>
+                                <td></td>
+                                <td>Homologação</td>
+                            </tr>
+                            <tr>
+                                <td>7827</td>
+                                <td>Exemplo 5</td>
+                                <td>Carteira 5</td>
+                                <td>Assunto 5</td>
+                                <td>XX/XX/XXXX</td>
+                                <td>XX/XX/XXXX</td>
+                                <td><span><i class="fa fa-square m-r-5 iVermelha"></i>Atrasado</span></td>
+                                <td></td>
+                                <td>Homologação</td>
+                            </tr>
+                            <tr>
+                                <td>7944</td>
+                                <td>Exemplo 6</td>
+                                <td>Carteira 6</td>
+                                <td>Assunto 6</td>
+                                <td>XX/XX/XXXX</td>
+                                <td>XX/XX/XXXX</td>
+                                <td><span><i class="fa fa-square m-r-5 iVerde"></i>Em andamento</span></td>
+                                <td></td>
+                                <td>Homologação</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        
+    </script>
+}

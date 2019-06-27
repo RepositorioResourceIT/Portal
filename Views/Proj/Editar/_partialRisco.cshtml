@@ -1,0 +1,76 @@
+﻿@model Itau.PO.UI.MVC.ViewModel.ProjetoViewModel
+
+<style>
+    .todo-text-color .todo-comment {
+        white-space: pre-wrap;
+    }
+
+    .btn-circle {
+        padding-left: 5px;
+        padding-right: 7px;
+        padding-top: 9px;
+    }
+</style>
+
+@using (Ajax.BeginForm("SalvarComentarioRisco", "Proj", new AjaxOptions { HttpMethod = "POST", OnBegin = "return ValidarCamposComentarioRisco()", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }))
+{
+    @Html.HiddenFor(model => model.IdProjeto)
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <h4><label class="control-label">Comentários dos Riscos</label></h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-11">
+                    <div class="form-group">
+                        @*<textarea placeholder="Digite sua mensagem aqui" class="form-control" rows="5"></textarea>*@
+
+                        @Html.TextAreaFor(m => m.ComentarioRisco, htmlAttributes: new { @class = "form-control", rows = "5", placeholder = "Digite sua mensagem aqui" })
+                        <span id="erroSpanComentarioRisco" class="erro field-validation-valid text-danger">O campo Comentário Risco é obrigatório.</span>
+                    </div>
+                </div>
+                <div class="col-1 text-right" style="padding-left: 0px;">
+                    <div class="form-group">
+                        @*<button type="submit" class="btn btn-info btn-circle btn-md" style="position: absolute; bottom: 32%; right: 15px;"><i class="fa fa-paper-plane-o"></i></button>*@
+                        <button type="submit" class="btn btn-info btn-circle btn-md"><i class="fa fa-paper-plane-o"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- END TASK DESC -->
+            <div class="form-body">
+                <div id="divComentarios" style="overflow-y: auto; max-height: 280px;">
+                    <ul class="media-list">
+                        @foreach (var item in Model.lstProjetoComentarioViewModel)
+                        {
+                            @*@imgUser = Model.lstProjetoComentarioViewModel[0].NomeUsuarioComentario.ToString().Split(' ')[0] + ".bmp"; }*@
+                            @*<label>@imgUser</label>*@
+
+                            string imgUser = item.NomeUsuarioComentario.ToString().Split(' ')[0] + ".bmp";
+                        <li>
+                            <a class="pull-left" href="javascript:;">
+                                @*<img class="todo-userpic" src="~/Content/assets/images/users/@imgUser" width="27px" height="27px">*@
+                                <img class="todo-userpic" src="~/Content/assets/images/users/@imgUser" width="27px" height="27px">
+                            </a>
+                            <div class="media-body todo-comment float-left">
+                                <p class="todo-comment-head">
+                                    <span class="todo-comment-username">@item.NomeUsuarioComentario</span>
+                                    <span class="todo-comment-date">@item.DataInclusao.ToString("dd/MM/yyyy HH:mm:ss")</span>
+                                </p>
+
+                                <p class="todo-text-color">
+                                    <span class="todo-comment">@item.Descricao</span>
+                                </p>
+                            </div>
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Itau.PO.UI.MVC.ViewModel.PerfilViewModel>
+
+@{
+    ViewBag.Title = "Permisões";
+}
+
+@section css{
+    <link href="~/Content/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        .container-fluid .row .col-12 .buttons {
+            max-height: 100%;
+            max-width: 100%;
+            display: flex;
+            padding-bottom: 10px;
+            float: right;
+        }
+    </style>
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="buttons">
+                @*<button id="sample_editable_1_new" class="btn waves-effect waves-light btn-info">
+                        Novo
+                        <i class="fa fa-plus"></i>
+                    </button>*@
+                @Html.ActionLink("Novo +", "CadastrarEditar", "Permissao", null, new { @class = "btn waves-effect waves-light btn-info" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsiv">
+                        <table id="tbPermissao" class="display nowrap table table-hover table-striped table-bordered tabela" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Perfil</th>
+                                    <th class="text-nowrap">Ação</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="@item.IdPerfil">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nome)
+                                    </td>
+
+                                    <td>
+                                        @Html.ActionLink(" ", "EditPerfil", new { id = item.IdPerfil }, new { @class = "fa fa-pencil text-inverse m-r-10" }) |
+                                        <a href="#"><i class="fa fa-close text-danger deleteAlert"></i></a>
+
+                                    </td>
+                                </tr>
+                            }
+                            @*<tbody>
+                                    <tr>
+                                        <td>Nome Perfil</td>
+                                        <td class="text-nowrap">
+                                            <a href="~/Perfil/CreatePerfil" data-toggle="tooltip" data-original-title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                            <a href="~/Perfil/EditPerfil" data-toggle="tooltip" data-original-title="Excluir"> <i class="fa fa-close text-danger"></i> </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nome Perfi 2</td>
+                                        <td class="text-nowrap">
+                                            <a href="~/Perfil/CreatePerfil" data-toggle="tooltip" data-original-title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                            <a href="~/Perfil/EditPerfil" data-toggle="tooltip" data-original-title="Excluir"> <i class="fa fa-close text-danger"></i> </a>
+                                        </td>
+                                    </tr>
+                                </tbody>*@
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Portal/jsPerfil.js"></script>
+    <script src="~/Content/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/js/buttons.flash.min.js"></script>
+    <script src="~/Content/js/jszip.min.js"></script>
+    <script src="~/Content/js/pdfmake.min.js"></script>
+    <script src="~/Content/js/vfs_fonts.js"></script>
+    <script src="~/Content/js/buttons.html5.min.js"></script>
+    <script src="~/Content/js/buttons.print.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+}
+

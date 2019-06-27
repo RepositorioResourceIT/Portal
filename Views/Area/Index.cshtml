@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Itau.PO.UI.MVC.ViewModel.AreaViewModel>
+
+@{
+    ViewBag.Title = "Área";
+}
+
+@section css{
+    <link href="~/Content/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        .container-fluid .row .col-12 .buttons {
+            max-height: 100%;
+            max-width: 100%;
+            display: flex;
+            padding-bottom: 10px;
+            float: right;
+        }
+    </style>
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="buttons">
+                @*<button id="sample_editable_1_new" class="btn waves-effect waves-light btn-info">
+                        Novo
+                        <i class="fa fa-plus"></i>
+                    </button>*@
+                @Html.ActionLink("Novo +", "CreateArea", "Area", null, new { @class = "btn waves-effect waves-light btn-info" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive m-t-40">
+                        <table id="tbArea" class="display nowrap table table-hover table-striped table-bordered tabela" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nome área</th>
+                                    <th>Descricão </th>
+                                    <th>Data Criação</th>
+                                    <th class="text-nowrap">Action</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="@item.IdArea">
+                                    <td>
+                                        @Html.DisplayFor(x => item.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(x => item.Descricao)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(x => item.DataInclusao)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(" ", "EditArea", new { id = item.IdArea }, new { @class = "fa fa-pencil text-inverse m-r-10" }) |
+
+                                        @*@Html.ActionLink(" ", "Delete", new { id = item.IdArea }, new { @class = "fa fa-close text-danger" })*@
+                                        <a href="#"><i class="fa fa-close text-danger deleteAlert"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="../Content/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Portal/jsArea.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="../Content/js/dataTables.buttons.min.js"></script>
+    <script src="../Content/js/buttons.flash.min.js"></script>
+    <script src="../Content/js/jszip.min.js"></script>
+    <script src="../Content/js/pdfmake.min.js"></script>
+    <script src="../Content/js/vfs_fonts.js"></script>
+    <script src="../Content/js/buttons.html5.min.js"></script>
+    <script src="../Content/js/buttons.print.min.js"></script>
+    <!-- end - This is for export functionality only -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
+
+}

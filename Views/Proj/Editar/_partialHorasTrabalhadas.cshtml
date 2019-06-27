@@ -1,0 +1,40 @@
+﻿@model Itau.PO.UI.MVC.ViewModel.ProjetoHorasTrabalhadasViewModel
+
+@using (Ajax.BeginForm("SalvarHorasTrabalhadas", "Proj", new AjaxOptions { HttpMethod = "POST", OnBegin = "return ValidarCamposHorasTrabalhadas()", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }))
+{
+    @Html.HiddenFor(model => model.IdProjeto)
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <h4 class="text-center">Horas trabalhadas:</h4>
+                        @*<label style="font-size: 30px">@(Model.TotalHorasTrabalhadas != 0 ? Model.TotalHorasTrabalhadas.ToString("00") : "00"):@(Model.TotalMinutosTrabalhados != 0 ? Model.TotalMinutosTrabalhados.ToString("00") : "00")</label>*@
+                        <label style="font-size: 30px">@Model.TotalHorasTrabalhadas.ToString("00"):@Model.TotalMinutosTrabalhados.ToString("00")</label>
+                    </div>
+                        
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataTrabalhada, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.DataTrabalhada, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                        <span id="erroSpanDataTrabalhada" class="erro field-validation-valid text-danger small">O campo Data Trabalhada é obrigatório.</span>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MinutosTrabalhados, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.MinutosTrabalhados, htmlAttributes: new { @class = "form-control", placeholder = "Minutos Trabalhados", title = "Este campo deve ser em minutos." })
+                        <span id="erroSpanMinutosTrabalhados" class="erro field-validation-valid text-danger small">O campo Minutos Trabalhados é obrigatório.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="button-group float-right">
+                        <input type="submit" class="btn btn-success" value="Salvar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

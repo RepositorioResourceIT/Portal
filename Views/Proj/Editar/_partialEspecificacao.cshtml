@@ -1,0 +1,250 @@
+﻿@*@model Itau.PO.UI.MVC.ViewModel.ProjetoViewModel
+
+    <style>
+        #divUsuarios {
+            overflow-x: auto;
+            overflow-y: auto;
+            height: 300px;
+        }
+    </style>
+
+    @using (Ajax.BeginForm("SalvarEspecificacao", "Proj", new AjaxOptions { HttpMethod = "POST", OnBegin = "return ValidarCamposEspecificacao()", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }, htmlAttributes: new { @id = "form" }))
+    {
+        @Html.HiddenFor(model => model.IdProjeto)
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NomeProjeto, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.NomeProjeto, htmlAttributes: new { @class = "form-control", placeholder = "Nome do projeto" })
+                            <span id="erroSpanNomeProjeto" class="erro field-validation-valid text-danger small">O campo Nome do Projeto é obrigatório.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DataInicio, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.DataInicio, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                            <span id="erroSpanDataInicio" class="erro field-validation-valid text-danger small">O campo Data Inicio é obrigatório.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdRisco, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(m => m.IdRisco
+                                , Model.lstProjetoRiscoViewModel as IEnumerable<SelectListItem>
+                                , htmlAttributes: new { @class = "form-control todo-taskbody-tags" })
+                            <span id="erroSpanRisco" class="erro field-validation-valid text-danger small">O campo Risco é obrigatório.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdUsuarioAnalista, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(m => m.IdUsuarioAnalista
+                                , Model.lstUsuarioAnalistaViewModel as IEnumerable<SelectListItem>
+                                , htmlAttributes: new { @class = "form-control todo-taskbody-tags" })
+                            <span id="erroSpanAnalista" class="erro field-validation-valid text-danger small">O campo Analista é obrigatório.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdProjetoStatus, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(m => m.IdProjetoStatus
+                                , Model.lstProjetoStatusViewModel as IEnumerable<SelectListItem>
+                                , htmlAttributes: new { @class = "form-control todo-taskbody-tags" })
+                            <span id="erroSpanProjetoStatus" class="erro field-validation-valid text-danger small">O campo Status é obrigatório.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdUsuarioDesenvolvedor, htmlAttributes: new { @class = "control-label" })
+
+                            <div id="divUsuarios">
+                                <table class="table table-striped table-bordered table-hover" id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <input class="form-check-input" type="checkbox" id="checkAllUser" />
+                                                <label class="form-check-label" for="checkAllUser">Todas as gerências</label>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < Model.lstUsuarioDesenvolvedorViewModel.Count; i++)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.HiddenFor(m => m.lstUsuarioDesenvolvedorViewModel[i].IdUsuario, htmlAttributes: new { @id = "lstUsuarioDesenvolvedorViewModel[" + i + "].IdUsuario", @name = "lstUsuarioDesenvolvedorViewModel[" + i + "].IdUsuario" })
+                                                    <input class="form-check-input checkUser" type="checkbox" checked="@Model.lstUsuarioDesenvolvedorViewModel[i].Selecionado" id="lstUsuarioDesenvolvedorViewModel[@i].Selecionado" name="lstUsuarioDesenvolvedorViewModel[@i].Selecionado" value="true" />
+                                                    <label class="form-check-label" for="lstUsuarioDesenvolvedorViewModel[@i].Selecionado">@Model.lstUsuarioDesenvolvedorViewModel[i].Nome</label> <br />
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <span id="erroSpanDesenvolvedor" class="erro field-validation-valid text-danger small">O campo Desenvolvedor é obrigatório.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdUsuarioDesenvolvedor, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(m => m.IdUsuarioDesenvolvedor
+                                , Model.lstUsuarioDesenvolvedorLiderViewModel as IEnumerable<SelectListItem>
+                                , htmlAttributes: new { @class = "form-control todo-taskbody-tags" })
+                            <span id="erroSpanUsuarioLider" class="erro field-validation-valid text-danger small">O campo Desenvolvedor Líder é obrigatório.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="button-group float-right">
+                            <input type="submit" class="btn btn-success" value="Salvar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }*@
+
+
+@model Itau.PO.UI.MVC.ViewModel.ProjetoViewModel
+
+<style>
+    #divUsuarios {
+        overflow-x: auto;
+        overflow-y: auto;
+        height: 300px;
+    }
+
+    #tbUsuariosDesenvolvedores {
+        margin-bottom: 0px;
+    }
+</style>
+
+@using (Ajax.BeginForm("SalvarEspecificacao", "Proj", new AjaxOptions { HttpMethod = "POST", OnBegin = "return ValidarCamposEspecificacao()", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }, htmlAttributes: new { @id = "form" }))
+{
+    @Html.HiddenFor(model => model.IdProjeto)
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <h4><label class="control-label">Especificação</label></h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdUsuarioDesenvolvedor, htmlAttributes: new { @class = "control-label" })
+
+                        <div id="divUsuarios">
+                            <table class="table table-striped table-bordered table-hover" id="tbUsuariosDesenvolvedores">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input class="form-check-input" type="checkbox" id="checkAllUser" />
+                                            <label class="form-check-label" for="checkAllUser">Todas as gerências</label>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.lstUsuarioDesenvolvedorViewModel.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.HiddenFor(m => m.lstUsuarioDesenvolvedorViewModel[i].IdUsuario, htmlAttributes: new { @id = "lstUsuarioDesenvolvedorViewModel[" + i + "].IdUsuario", @name = "lstUsuarioDesenvolvedorViewModel[" + i + "].IdUsuario" })
+                                                <input class="form-check-input checkUser" type="checkbox" checked="@Model.lstUsuarioDesenvolvedorViewModel[i].Selecionado" id="lstUsuarioDesenvolvedorViewModel[@i].Selecionado" name="lstUsuarioDesenvolvedorViewModel[@i].Selecionado" value="true" />
+                                                <label class="form-check-label" for="lstUsuarioDesenvolvedorViewModel[@i].Selecionado">@Model.lstUsuarioDesenvolvedorViewModel[i].Nome</label> <br />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <span id="erroSpanDesenvolvedor" class="erro field-validation-valid text-danger small">O campo Desenvolvedor é obrigatório.</span>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdUsuarioDesenvolvedor, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.IdUsuarioDesenvolvedor
+                                    , Model.lstUsuarioDesenvolvedorLiderViewModel as IEnumerable<SelectListItem>
+                                    , htmlAttributes: new { @class = "form-control todo-taskbody-tags" })
+                                <span id="erroSpanUsuarioLider" class="erro field-validation-valid text-danger small">O campo Desenvolvedor Líder é obrigatório.</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdUsuarioAnalista, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.IdUsuarioAnalista
+                                    , Model.lstUsuarioAnalistaViewModel as IEnumerable<SelectListItem>
+                                    , htmlAttributes: new { @class = "form-control todo-taskbody-tags" })
+                                <span id="erroSpanAnalista" class="erro field-validation-valid text-danger small">O campo Analista é obrigatório.</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomeProjeto, htmlAttributes: new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.NomeProjeto, htmlAttributes: new { @class = "form-control", placeholder = "Nome do projeto" })
+                                <span id="erroSpanNomeProjeto" class="erro field-validation-valid text-danger small">O campo Nome do Projeto é obrigatório.</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DataInicio, htmlAttributes: new { @class = "control-label" })
+                                @Html.TextBoxFor(model => model.DataInicio, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                                <span id="erroSpanDataInicio" class="erro field-validation-valid text-danger small">O campo Data Inicio é obrigatório.</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdRisco, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.IdRisco
+                                    , Model.lstProjetoRiscoViewModel as IEnumerable<SelectListItem>
+                                    , htmlAttributes: new { @class = "form-control todo-taskbody-tags" })
+                                <span id="erroSpanRisco" class="erro field-validation-valid text-danger small">O campo Risco é obrigatório.</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.IdProjetoStatus, htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownListFor(m => m.IdProjetoStatus
+                                    , Model.lstProjetoStatusViewModel as IEnumerable<SelectListItem>
+                                    , htmlAttributes: new { @class = "form-control todo-taskbody-tags" })
+                                <span id="erroSpanProjetoStatus" class="erro field-validation-valid text-danger small">O campo Status é obrigatório.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="button-group float-right">
+                        <input type="submit" class="btn btn-success" value="Salvar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

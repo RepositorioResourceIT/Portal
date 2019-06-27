@@ -1,0 +1,366 @@
+﻿@model Itau.PO.UI.MVC.ViewModel.QuestionarioEstrategistaViewModel
+@{
+    ViewBag.Title = "Questionário Estrategista";
+}
+@section css{
+    <link href="~/Content/assets/plugins/select2/dist/css/select2.css" rel="stylesheet" />
+    <link href="~/Content/assets/apps/css/todo-2.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/plugins/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" />
+
+    <link href="~/Content/assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+
+    <style>
+        /*ul {
+                padding-left: 0px;
+            }*/
+
+
+
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: none;
+        }
+
+        .erro {
+            display: none;
+        }
+
+        .DivBorder {
+            border: 2px solid;
+            border-color: #fd5d5d;
+            height: 200px;
+        }
+
+        .disabled {
+            background-color: #e9ecef;
+            pointer-events: none;
+        }
+    </style>
+}
+<div class="container-fluid">
+
+
+    @*@using (Ajax.BeginForm("CadastrarEditar", "QuestionarioEstrategista", new AjaxOptions { HttpMethod = "POST", OnBegin = "return ValidarCampos()", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }, new { id = "frmQuestionarioEstrategista" }))*@
+    @*@using (Html.BeginForm("CadastrarEditar", "QuestionarioEstrategista", FormMethod.Post, new { id = "frmQuestionarioEstrategista", onsubmit = "return ValidarCampos()", enctype = "multipart/form-data" }))*@
+    @using (Ajax.BeginForm("CadastrarEditar", "QuestionarioEstrategista", new AjaxOptions { HttpMethod = "POST", OnBegin = "return false;", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }, new { id = "frmQuestionarioEstrategista" }))
+    {
+        @Html.AntiForgeryToken()
+
+      
+            var dataAbertura = Model.DataAbertura == null ? "Não Iniciado" : Model.DataAbertura.ToString();
+
+     
+        @Html.Hidden("DataAbertura", dataAbertura)
+
+        @Html.HiddenFor(model => model.IdQuestionarioEstrategista)
+        @Html.HiddenFor(model => model.IdQuestionarioEtapa)
+
+        @Html.HiddenFor(model => model.DataPriorizacao)
+        @Html.HiddenFor(model => model.IdUsuarioCriacao)
+        @Html.HiddenFor(model => model.IdQuestionarioRisco)
+        @Html.HiddenFor(model => model.SLAHomologacao)
+        @Html.HiddenFor(model => model.SLAImplantacao)
+        @Html.HiddenFor(model => model.SLAParametrizacao)
+        @Html.HiddenFor(model => model.SLATreinamento)
+        @Html.Hidden("IdUsuarioLogado", (object)ViewBag.IdUsuarioLogado)
+
+
+        <div class="form-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+
+
+                            @{ 
+                                var dataPriorizacao = Model.DataPriorizacao == null ? "" : Model.DataPriorizacao.ToString();
+                            }
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>Nome: @Model.NomeUsuarioCriacao</p>
+                                    <p>Data Inicio Tratamento: @dataAbertura </p>
+                                    <p>Data da priorização: @dataPriorizacao</p>
+                                </div>
+
+                                <div class="col-6">
+                                    <p>Área: @Model.NomeAreaUsuario</p>
+                                    <p>Etapa: @Model.NomeQuestionarioEtapa</p>
+                                    <p>Dias totais: @Model.DiasTotais</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <span>Código do questionário:</span>
+                                        @Html.TextBoxFor(m => m.IdQuestionarioEstrategista, htmlAttributes: new { @class = "form-control todo-taskbody-tasktitle", placeholder = "Código Questionário" })
+
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <span>Nome do questionário:</span>
+                                        @Html.TextBoxFor(m => m.NomeQuestionario, htmlAttributes: new { @class = "form-control todo-taskbody-tasktitle", placeholder = "Nome do Questionário" })
+                                        <small id="erroNomeQuestionario" class="erro field-validation-valid text-danger" data-valmsg-for="Titulo" data-valmsg-replace="true">O campo nome questionário é obrigatório.</small>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <span>Necessário treinamento?</span>
+                                    <p id="idParagrafoPossuiTreinamento">@Html.CheckBoxFor(model => model.NecessarioTreinamento, new { @class = "js-switch", data_color = "#009efb" })</p>
+                                    @*<p id="idParagrafoPossuiTreinamento"><input id="chkPossuiTreinamento" type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>*@
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-3 d-flex">
+                    <div class="card cardParametrizacao" id="cardParametrizacao">
+                        <div class="card-body">
+                            <h4 class="card-title">Parametrização</h4>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="button-group float-right">
+                                        <button type="button" id="btnInicioTratamento" class="btn btn-outline-info" data-toggle="modal" data-target="#divIniciar">Iniciar</button>
+                                        <button type="button" id="btnPrametrizacaoOk" class="btn btn-success">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span>Ponto focal:</span>
+                                @Html.DropDownListFor(modelItem => modelItem.IdResponsavelParametrizacao, Model.lstUsuarioResponsavelParametrizacao, "Selecione", new { @class = "form-control", @id = "IdResponsavelParametrizacao" })
+
+                                <small id="erroPontoFocalParametrizacao" class="erro field-validation-valid text-danger" data-valmsg-for="Titulo" data-valmsg-replace="true">Selecione o ponto focal.</small>
+                            </div>
+
+                            <span>SLA: @Model.SLAParametrizacao dias</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 d-flex">
+                    <div class="card cardHomologacao">
+                        <div class="card-body">
+                            <h4 class="card-title">Homologação</h4>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="button-group float-right">
+                                        <button type="button" id="btnRecusarHomolog" class="btn btn-danger" data-toggle="modal" data-target="#divRecusa">Recusar</button>
+                                        <button type="button" id="btnHomologacaoOk" class="btn btn-success">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <span>Ponto focal:</span>
+                                @Html.DropDownListFor(modelItem => modelItem.IdResponsavelHomologacao, Model.lstUsuarioResponsavelHomologacao, "Selecione", new { @class = "form-control", @id = "IdResponsavelHomologacao" })
+                                <small id="erroPontoFocalHomologacao" class="erro field-validation-valid text-danger" data-valmsg-for="Titulo" data-valmsg-replace="true">Selecione o ponto focal.</small>
+                            </div>
+
+                            <span>SLA: @Model.SLAHomologacao dias</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 d-flex">
+                    <div class="card cardTreinamento">
+                        <div class="card-body">
+                            <h4 class="card-title">Treinamento</h4>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="button-group float-right">
+                                        <button type="button" class="btn btn-success" id="btnTreinamentoOk">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <span>Ponto focal:</span>
+                                @Html.DropDownListFor(modelItem => modelItem.IdResponsavelTreinamento, Model.lstUsuarioResponsavelTreinamento, "Selecione", new { @class = "form-control", @id = "IdResponsavelTreinamento" })
+                                <small id="erroPontoFocalTreinamento" class="erro field-validation-valid text-danger" data-valmsg-for="Titulo" data-valmsg-replace="true">Selecione o ponto focal.</small>
+                            </div>
+
+                            <span>SLA: @Model.SLATreinamento dias</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-3 d-flex">
+                    <div class="card cardImplantacao">
+                        <div class="card-body">
+                            <h4 class="card-title">Implantação</h4>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="button-group float-right">
+                                        <button type="button" id="btnImplantacaoOk" class="btn btn-success">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <span>Ponto focal:</span>
+                                @Html.DropDownListFor(modelItem => modelItem.IdResponsavelImplantacao, Model.lstUsuarioResponsavelImplantacao, "Selecione", new { @class = "form-control", @id = "IdResponsavelImplantacao" })
+                                <small id="erroPontoFocalImplantacao" class="erro field-validation-valid text-danger" data-valmsg-for="Titulo" data-valmsg-replace="true">Selecione o ponto focal.</small>
+                            </div>
+
+                            <span>SLA: @Model.SLATreinamento dias</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <span>Descrição:</span>
+                                        @Html.TextAreaFor(m => m.Descricao, htmlAttributes: new { @class = "form-control", @rows = "7", placeholder = "Descrição do questionário estrategista" })
+                                        <small id="erroDescricaoQuestionario" class="erro field-validation-valid text-danger" data-valmsg-for="Titulo" data-valmsg-replace="true">O campo Descrição é obrigatório.</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <span>Carteira:</span>
+                                        @Html.DropDownListFor(modelItem => modelItem.IdCarteira, Model.lstCarteira, "Selecione", new { @class = "form-control", @id = "IdCarteira" })
+                                        <small id="erroCarteira" class="erro field-validation-valid text-danger" data-valmsg-for="Titulo" data-valmsg-replace="true">Selecione a carteira.</small>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <span>Assunto:</span>
+                                        @Html.DropDownListFor(modelItem => modelItem.IdAssunto, Model.lstAssunto, "Selecione", new { @class = "form-control", @id = "IdAssunto" })
+                                        <small id="erroAssunto" class="erro field-validation-valid text-danger" data-valmsg-for="Titulo" data-valmsg-replace="true">Selecione o assunto.</small>
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-6" style="position: relative;">
+                                    <div class="form-group">
+                                        <span>Documentos:</span>
+                                        <div class="dropzone">
+                                            <div class="fallback">
+                                                <input name="file" id="file" type="file" multiple />
+
+                                            </div>
+                                        </div>
+                                        <small id="erroSpanArquivo" class="collapse field-validation-valid text-danger" data-valmsg-for="Arquivo" data-valmsg-replace="true">É nescessaria a inclusão de 4 arquivos.</small>
+                                    </div>
+                                    <div class="form-group">
+
+                                        @if (Model.lstQuestionarioDocumentos.Count > 0)
+                                        {
+                                            <h3 class="box-title">Anexos</h3>
+                                            <hr class="m-t-0 m-b-0">
+                                            <br />
+                                            <table class="tabela table table-hover table-striped table-bordered" id="listaArquivos">
+                                                <tbody>
+
+                                                    @foreach (var questionarioDocumentos in Model.lstQuestionarioDocumentos)
+                                                    {
+                                                        <tr style="height:10%;">
+                                                            <td class="tdClass" style="width: 80%;">
+                                                                <span>@questionarioDocumentos.NomeArquivo</span>
+                                                            </td>
+                                                            <td class="tdClass">
+                                                                <span class="mytooltip tooltip-effect-1">
+                                                                    <a href="#"><i class="fa fa-info-circle"></i></a>
+                                                                    <span class="tooltip-content clearfix" style="text-align: justify;">
+                                                                        <span class="tooltip-text">&nbsp; @questionarioDocumentos.Descricao </span>
+                                                                    </span>
+                                                                </span>
+
+                                                                @Html.ActionLink(" ", "Download", new { idQuestDocumento = questionarioDocumentos.IdQuestionarioDocumentos }, htmlAttributes: new { @class = "fa fa-cloud-download" })
+                                                                <a href="#" class="fa fa-close anchorExcluir deleteAlert" data-id="@questionarioDocumentos.IdQuestionarioDocumentos"></a>
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                            <small id="erroListArquivo" class="collapse field-validation-valid text-danger" data-valmsg-for="Arquivo" data-valmsg-replace="true">É nescessario 4 arquivos anexos.</small>
+                                        }
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-actions right todo-form-actions text-right">
+                                        <button id="btnCancelQuestionario" class="btn btn-inverse">Cancelar</button>
+                                        <button id="btnSaveQuestionario" type="submit" class="btn btn-success">Salvar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        @Html.HiddenFor(m => m.NomeUsuarioCriacao)
+    }
+</div>
+<!-- Modal de recusa do arquiteto -->
+<div id="divRecusa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Motivo da recusa da Homologação</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">Recusa:</label>
+                        <textarea class="form-control" id="message-text" rows="5"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-success waves-effect waves-light recusarAlert">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+
+    <script src="~/Content/assets/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="~/Content/assets/plugins/nicEditor/nicEdit.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/Content/assets/plugins/nicEditor/nicEdit-latest.js"></script>
+    <script src="~/Content/assets/plugins/select2/dist/js/select2.js"></script>
+    <script src="~/Content/assets/plugins/select2/dist/js/select2.full.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Portal/jsQuestionarioEstrategista.js"></script>
+    <script src="~/Content/assets/plugins/switchery/dist/switchery.min.js"></script>
+
+   
+
+}
+

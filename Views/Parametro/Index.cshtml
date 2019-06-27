@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Itau.PO.UI.MVC.ViewModel.ParametroViewModel>
+
+@{
+    ViewBag.Title = "Parâmetro";
+}
+
+
+@section css{
+    <link href="~/Content/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        .container-fluid .row .col-12 .buttons {
+            max-height: 100%;
+            max-width: 100%;
+            display: flex;
+            padding-bottom: 10px;
+            float: right;
+        }
+    </style>
+    }
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="buttons">
+                    @Html.ActionLink("Novo +", "CreateParametrizacao", "Parametro", null, new { @class = "btn waves-effect waves-light btn-info" })
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsiv">
+                            <table id="tbParametro" class="display nowrap table table-hover table-striped table-bordered tabela" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Valor</th>
+                                        <th class="text-nowrap">Ação</th>
+                                    </tr>
+                                </thead>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="@item.Id">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Valor)
+                                        </td>
+
+                                        <td>
+                                            @Html.ActionLink(" ", "EditParametrizacao", new { id = item.Id }, new { @class = "fa fa-pencil text-inverse m-r-10" }) |
+
+                                            @*@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "fa fa-close text-danger" })*@
+                                            <a href="#"><i class="fa fa-close text-danger deleteAlert"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        <script src="~/Content/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/Portal/jsParametro.js"></script>
+        <script src="~/Content/js/dataTables.buttons.min.js"></script>
+        <script src="~/Content/js/buttons.flash.min.js"></script>
+        <script src="~/Content/js/jszip.min.js"></script>
+        <script src="~/Content/js/pdfmake.min.js"></script>
+        <script src="~/Content/js/vfs_fonts.js"></script>
+        <script src="~/Content/js/buttons.html5.min.js"></script>
+        <script src="~/Content/js/buttons.print.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    }

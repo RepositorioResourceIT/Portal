@@ -1,0 +1,405 @@
+﻿
+@{
+    ViewBag.Title = "Priorização de Projetos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    <link href="~/Content/assets/plugins/nestable/nestable.css" rel="stylesheet" type="text/css" />
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Projetos </h4>
+                    <div class="myadmin-dd-empty dd" id="nestable2">
+                        <ol class="dd-list">
+                            <li class="dd-item dd3-item" data-id="1">                         
+                                <div class="dd-handle dd3-handle " > </div>
+                                <div class="dd3-content" onclick="teste()"><span><b>Cód.Projeto : 0045</b>     |    <b>Projeto</b></span> <b><span style="float:right">  33</span></b></div>   
+
+                                <div id="collapseDetalhesProjeto" class="collapse" role="tabpanel" aria-labelledby="idHeaderDetalhesProjeto">
+                                    <div class="" style="background: #1976d2; border-color: #1976d2;">
+                                        <table class="text-white" style="width: 100%; font-size:large; font-weight: bold;">
+                                            <tbody>
+                                                <tr></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+       
+                                </div>
+                            </li>
+                            <li class="dd-item dd3-item" data-id="2">
+                                <div class="dd-handle dd3-handle"></div>
+                                <div class="dd3-content" onclick=" teste1()"> <span><b>Cód.Projeto : 0045</b>     |    <b>Projeto</b></span> <b><span style="float:right">  33</span></b></div>
+
+
+                                <div id="collapseDetalhesProjeto1" class="collapse" role="tabpanel" aria-labelledby="idHeaderDetalhesProjeto">
+                                    <div class="" style="background: #1976d2; border-color: #1976d2;">
+                                        <table class="text-white" style="width: 100%; font-size:large; font-weight: bold;">
+                                            <tbody>
+                                                <tr></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="card-body">
+
+
+                                        <table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <li class="dd-item dd3-item" data-id="3">
+                                <div class="dd-handle dd3-handle"></div>
+                                <div class="dd3-content" onclick=" teste2()"> <span><b>Cód.Projeto : 0045</b>     |    <b>Projeto</b></span> <b><span style="float:right">  33</span></b></div>
+
+
+                                <div id="collapseDetalhesProjeto2" class="collapse" role="tabpanel" aria-labelledby="idHeaderDetalhesProjeto">
+                                    <div class="" style="background: #1976d2; border-color: #1976d2;">
+                                        <table class="text-white" style="width: 100%; font-size:large; font-weight: bold;">
+                                            <tbody>
+                                                <tr></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="card-body">
+
+
+                                        <table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <li class="dd-item dd3-item" data-id="4">
+                                <div class="dd-handle dd3-handle"></div>
+                                <div class="dd3-content " onclick=" teste3()"> <span><b>Cód.Projeto : 0045</b>     |    <b>Projeto</b></span> <b><span style="float:right">  33</span></b></div>
+                              <div id="collapseDetalhesProjeto3" class="collapse" role="tabpanel" aria-labelledby="idHeaderDetalhesProjeto">
+                                    <div class="" style="background: #1976d2; border-color: #1976d2;">
+                                        <table class="text-white" style="width: 100%; font-size:large; font-weight: bold;">
+                                            <tbody>
+                                                <tr></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="card-body">
+
+
+                                        <table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <li class="dd-item dd3-item" data-id="5">
+                                <div class="dd-handle dd3-handle"></div>
+                                <div class="dd3-content" onclick=" teste4()"><span><b>Cód.Projeto : 0045</b>     |    <b>Projeto</b></span> <b><span style="float:right">  33</span></b></div>
+                                  <div id="collapseDetalhesProjeto4" class="collapse" role="tabpanel" aria-labelledby="idHeaderDetalhesProjeto">
+                                    <div class="" style="background: #1976d2; border-color: #1976d2;">
+                                        <table class="text-white" style="width: 100%; font-size:large; font-weight: bold;">
+                                            <tbody>
+                                                <tr></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="card-body">
+
+
+                                        <table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </li>
+                            <li class="dd-item dd3-item" data-id="6">
+                                <div class="dd-handle dd3-handle"></div>
+                                <div class="dd3-content" onclick="teste6()"> <span><b>Cód.Projeto : 0045</b>     |    <b>Projeto</b></span> <b><span style="float:right">  33</span></b></div>
+                                <div id="collapseDetalhesProjeto6" class="collapse" role="tabpanel" aria-labelledby="idHeaderDetalhesProjeto">
+                                    <div class="" style="background: #1976d2; border-color: #1976d2;">
+                                        <table class="text-white" style="width: 100%; font-size:large; font-weight: bold;">
+                                            <tbody>
+                                                <tr></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="card-body">
+
+
+                                        <table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                    </ol>
+                </div>
+                <div class="form-actions float-right">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                          
+                            </div>
+                        </div>
+                        <div class="col-md-6"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+@section scripts{
+    <script type="text/javascript" src="~/Content/assets/plugins/nestable/jquery.nestable.js"></script>
+    <script type="text/javascript">
+        function teste() {
+            $("#collapseDetalhesProjeto").toggle()
+        }
+        function teste1() {
+            $("#collapseDetalhesProjeto1").toggle()
+        }
+        function teste2() {
+            $("#collapseDetalhesProjeto2").toggle()
+        }
+        function teste3() {
+            $("#collapseDetalhesProjeto3").toggle()
+        }
+        function teste4() {
+            $("#collapseDetalhesProjeto4").toggle()
+        }
+        function teste6() {
+            $("#collapseDetalhesProjeto6").toggle()
+        }
+
+
+
+        $(document).ready(function () {
+            // Nestable
+            var updateOutput = function (e) {
+                var list = e.length ? e : $(e.target),
+                    output = list.data('output');
+                if (window.JSON) {
+                    output.val(window.JSON.stringify(list.nestable('serialize'))); //, null, 2));
+                } else {
+                    output.val('JSON browser support required for this demo.');
+                }
+            };
+
+
+            $('#nestable2').nestable({
+                group: 1
+            }).on('change', updateOutput);
+
+
+            updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+            //$('#teste').click(
+            //    $("#collapseDetalhesProjeto").toggle()
+            //);
+
+
+
+            //$('#teste').click(function () {
+            //  $("#collapseDetalhesProjeto").toggle()
+            //});
+
+            //$("#collapseDetalhesProjeto").toggle()
+            ////console.log('ae');
+            //$('#collapseDetalhesProjeto').show()
+            //if(display===true)
+            // {
+            //     //$("#collapseDetalhesProjeto").toggle()
+            //     $("#collapseDetalhesProjeto").show();
+            // }
+            //else if (display === false)
+            //   $("#collapseDetalhesProjeto").hide()
+
+
+
+
+
+            //jQuery(document).ready(function () {
+            //    jQuery('#collapseDetalhesProjeto').live('click', function (event) {
+            //        jQuery('#content').toggle('show');
+            //    });
+            //});
+
+            //$('#teste').click(
+            //     var x = document.getElementById("#collapseDetalhesProjeto");
+            //     alert('teste');
+            //     if (style.display === "none") {
+            //         x.style.display = "bloxk";
+
+            //     }
+            //     else
+            //    x.style.display = "block"
+            // }
+
+
+
+
+        });
+
+
+
+
+    </script>
+
+}

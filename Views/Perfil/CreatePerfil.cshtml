@@ -1,0 +1,73 @@
+﻿@model Itau.PO.UI.MVC.ViewModel.PerfilViewModel
+
+@{
+
+    ViewBag.Title = "Cadastro de Perfis";
+}
+
+@section css{
+    <style>
+        [type=checkbox]:checked, [type=checkbox]:not(:checked) {
+            position: relative !important;
+            left: 0px !important;
+            opacity: 1 !important;
+        }
+    </style>
+
+    .field-validation-error {
+    display: block;
+    }
+}
+    
+<div class="container-fluid">
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="tab-pane" id="settings" role="tabpanel">
+                        <div class="card-body">
+                            <form class="form-horizontal form-material">
+                                <div id="nome" class="form-group">
+                                    @Html.LabelFor(model => Model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-6">
+                                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", required= "" } })
+                                        @*@Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })*@
+                                   </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-1 float-left" })
+                                    <div class="col-md-12">
+                                        <div class="icheckbox_minimal-red checked">
+                                            @Html.CheckBoxFor(model => model.Ativo, htmlAttributes: new { @class = "icheckbox_minimal-red" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="form-actions right todo-form-actions text-right">
+                                            @Html.ActionLink("Voltar", "Index", "Perfil", null, new { @class = "btn btn-inverse" })
+                                            <button id="teste" class="btn btn-success">Salvar</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+
+    $("#tesste").click(function () {
+        alert('teste')
+        var campo1 = document.getElementById('Nome');
+        campo1.setCustomValidity('Preencha este campo corretamente.'); 
+    })
+</script>
+

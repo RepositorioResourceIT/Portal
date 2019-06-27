@@ -1,0 +1,116 @@
+﻿@model Itau.PO.UI.MVC.ViewModel.HomeViewModel
+
+@{
+    ViewBag.Title = "Home";
+    var imgUser = "";
+}
+
+
+@section css{
+    <link href="~/Content/assets/apps/css/todo-2.min.css" rel="stylesheet" />
+
+    <style>
+        .form-body .col-md-12 ul,
+        .form-group .col-md-12 form ul {
+            padding-left: 0px;
+            list-style: none;
+        }
+
+            .form-body .col-md-12 ul li,
+            .form-group .col-md-12 form ul li {
+                display: flex;
+            }
+
+                .form-body .col-md-12 ul li a,
+                .form-group .col-md-12 form ul li a {
+                    padding-right: 10px;
+                }
+    </style>
+
+}
+
+<div class="container-fluid">
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            @if (Model.HomePostViewModel.Count() == 0)
+            {
+                <div class="alert alert-info alert-rounded">
+                    Não há postagens para serem exibidas.
+                </div>
+
+            }
+            else
+            {
+                foreach (var item in Model.HomePostViewModel)
+                {
+
+                    {  imgUser = item.NomeUsuarioCriacao.ToString().Split(' ')[0] + ".bmp"; }
+                   
+
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- TASK HEAD -->
+                            <div class="form-group">
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="todo-taskbody-user">
+                                        <img class="todo-userpic" src="~/Content/assets/images/users/@imgUser" width="50px" height="50px">
+                                        <span class="todo-username">@item.NomeUsuarioCriacao </span>
+                                        <small class="text-muted">@item.DataInclusao</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END TASK HEAD -->
+                            <!-- TASK TITLE -->
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <h4>@item.Titulo</h4>
+                                </div>
+                            </div>
+                            <!-- TASK DESC -->
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <p>@Html.Raw(item.Descricao)</p></div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <form action="#">
+                                        @Html.ActionLink(item.lstPostComentario.Count() + " Comentários", "Visualizar", "Posts", new { IdPost = item.IdPost }, null)
+
+                                        <div class="float-right">
+                                            @*<button id="sample_editable_1_new" class="btn waves-effect waves-light btn-info" formaction="PostCadastrarEditar">
+                                                Ver mais...
+                                            </button>*@
+
+                                            @Html.ActionLink("Ver mais...", "Visualizar", "Posts", new { IdPost = item.IdPost }, htmlAttributes: new { @class = "btn waves-effect waves-light btn-info" } )
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-12">
+                                    <small class="text-muted">Para: </small>
+                                    <small class="text-muted">
+
+                                        @foreach (var usr in item.lstUsuariosGerencia)
+                                        {
+                                            @usr.Nome <span>-</span>
+                                        }
+
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+</div>

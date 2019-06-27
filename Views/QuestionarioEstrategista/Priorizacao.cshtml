@@ -1,0 +1,147 @@
+﻿@model IEnumerable<Itau.PO.UI.MVC.ViewModel.QuestionarioEstrategistaViewModel>
+
+@{
+    ViewBag.Title = "Priorizacao de Questionário";
+}
+@section css{
+    <link href="~/Content/assets/plugins/nestable/nestable.css" rel="stylesheet" type="text/css" />
+}
+<div class="container-fluid">
+    @using (Ajax.BeginForm("Priorizar", "Quest", new AjaxOptions { HttpMethod = "POST", OnBegin = "return false;", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-body">
+                            <h3 class="box-title">Dados priorização questionários</h3>
+                            <hr class="m-t-0 m-b-40">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right col-md-4">Nome:</label>
+                                        <div class="col-md-8">
+                                            @*<p class="form-control-static">@Model.FirstOrDefault() != null ? @Model.First().NomeUsuarioPriorizacao : ""</p>*@
+                                            <p class="form-control-static">@ViewBag.Usuario.Nome</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right col-md-4">Cargo:</label>
+                                        <div class="col-md-8">
+                                            <p class="form-control-static">@ViewBag.Perfil.Nome</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right col-md-6">Data da priorização:</label>
+                                        <div class="col-md-6">
+                                            <p class="form-control-static">@DateTime.Now.ToString("dd/MM/yyyy")</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Questionários</h4>
+                        <div class="myadmin-dd-empty dd" id="nestable2">
+                            <ol class="dd-list">
+                                @foreach (var questionarioEstrategista in Model)
+                                {
+                                    <li class="dd-item dd3-item" data-id="@questionarioEstrategista.IdQuestionarioEstrategista">
+                                        <div class="dd-handle dd3-handle"></div>
+                                        <div class="dd3-content">@questionarioEstrategista.NomeQuestionario</div>
+                                    </li>
+                                }
+                            </ol>
+                        </div>
+
+                        <div class="form-actions float-right">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-12">
+                                            @Html.ActionLink("Cancelar", "Index", "QuestionarioEstrategista", null, new { @class = "btn btn-inverse" })
+                                            <button type="submit" class="btn btn-info" id="btnSalvar"> <i class="fa fa-pencil"></i> Salvar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section scripts{
+    <script type="text/javascript" src="~/Content/assets/plugins/nestable/jquery.nestable.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/Portal/jsQuestionarioEstrategista.js"></script>
+
+    <script type="text/javascript">
+        var lstIds;
+
+        $(document).ready(function () {
+            // Nestable
+            var updateOutput = function (e) {
+                var list = e.length ? e : $(e.target), output = list.data('output');
+
+                if (window.JSON) {
+                    output.val(window.JSON.stringify(list.nestable('serialize')));
+
+                    lstIds = window.JSON.stringify(list.nestable('serialize'));
+
+                    //teste
+                    //var stringJson = JSON.stringify(list.nestable('serialize'));
+                    //retorno
+                    //"[{"id":1},{"id":2},{"id":3},{"id":4},{"id":6},{"id":5}]"
+                } else {
+                    output.val('JSON browser support required for this demo.');
+                }
+            };
+
+            $('#nestable2').nestable({
+                group: 1
+            }).on('change', updateOutput);
+
+            updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+            $('#btnSalvar').click(function () {
+                $.ajax({
+                    url: "/Quest/Priorizar",
+                    type: "POST",
+                    data: "lstIds=" + lstIds,
+                    dataType: "json", // type of data you're expecting from response
+                    success: function (data) {
+                        if (data.msg == 'success') {
+                            swal("Salvo!", "Registros priorizados com sucesso!", "success");
+                        }
+                        else {
+                            swal("Erro!", data.msg, "error");
+                        }
+                    },
+                    error: function (data) {
+                        alert(data.msg);
+                    }
+                });
+            });
+        });
+    </script>
+}

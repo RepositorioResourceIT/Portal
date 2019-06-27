@@ -1,0 +1,123 @@
+﻿<style>
+    .lblCheckbox {
+        display: block;
+    }
+
+    .divCheckbox span {
+        margin-top: 13px;
+    }
+</style>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Número da OY:</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Qual data fatal:</label>
+                    <input type="date" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Data Muro:</label>
+                    <input type="date" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="divCheckbox">
+                        <labe class="lblCheckbox">Tem demanda legal?</labe>
+                        @*<input class="check" id="flat-checkbox-1" style="position: absolute; opacity: 0;" type="checkbox" data-checkbox="icheckbox_flat-red">*@
+                        <input type="checkbox" class="js-switch">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Usuário:</label>
+                    <select class="custom-select form-control">
+                        <option value="">Selecione os usuários</option>
+                        <option value="Amsterdam">Carla</option>
+                        <option value="Berlin">Leandro</option>
+                        <option value="Frankfurt">Lu</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Data Término:</label>
+                    <input type="date" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="divCheckbox">
+                        <label class="lblCheckbox">Fluxo paliativo?</label>
+                        @*<input type="checkbox" class="js-switch" data-size="small">*@
+                        <input id="chkFluxoPaliativo" type="checkbox" class="js-switch">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="form-group">
+                    <div id="divFileUploadFluxoPaliativo">
+                        <label id="lblFileUploadFluxoPaliativo" style="visibility: hidden;"> Espaço </label>
+                        <input type="file" id="ArquivoAnexo" name="ArquivoAnexo" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label> Ponto focal:</label>
+                    <select class="custom-select form-control">
+                        <option value="">Selecione os usuários</option>
+                        <option value="Amsterdam">Carla</option>
+                        <option value="Berlin">Leandro</option>
+                        <option value="Frankfurt">Lu</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Qual o nível:</label>
+                    <select class="custom-select form-control">
+                        <option value="">Selecione o nível</option>
+                        <option value="Amsterdam">Alto</option>
+                        <option value="Berlin">Moderado</option>
+                        <option value="Frankfurt">Baixo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Data Legal:</label>
+                    <input type="date" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="button-group float-right">
+                    <button type="button" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

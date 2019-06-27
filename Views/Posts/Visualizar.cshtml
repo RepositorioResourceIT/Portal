@@ -1,0 +1,117 @@
+﻿@model Itau.PO.UI.MVC.ViewModel.PostViewModel
+@{
+    ViewBag.Title = "Post";
+    var imgUserComent = "";
+}
+
+@section css{
+    <link href="~/Content/assets/apps/css/todo-2.min.css" rel="stylesheet" />
+
+    <style>
+        .form-body .col-md-12 ul,
+        .form-group .col-md-12 form ul {
+            padding-left: 0px;
+            list-style: none;
+        }
+
+            .form-body .col-md-12 ul li,
+            .form-group .col-md-12 form ul li {
+                display: flex;
+            }
+
+                .form-body .col-md-12 ul li a,
+                .form-group .col-md-12 form ul li a {
+                    padding-right: 10px;
+                }
+    </style>
+
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.IdPost)
+                    @Html.HiddenFor(model => model.IdUsuarioCriacao)
+                    @Html.HiddenFor(model => model.DataInclusao)
+                    @Html.HiddenFor(model => model.DataAlteracao)
+                    @Html.HiddenFor(model => model.DataExclusao)
+                    <!-- TASK HEAD -->
+                    <div class="form-group">
+                        <div class="col-md-8 col-sm-8">
+                            <div class="todo-taskbody-user">
+                                @{ var imgUser = Model.NomeUsuarioCriacao.ToString().Split(' ')[0] + ".bmp"; }
+
+                                <img class="todo-userpic" src="~/Content/assets/images/users/@imgUser" width="50px" height="50px">
+                                <span class="todo-username">@Model.NomeUsuarioCriacao</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END TASK HEAD -->
+                    <!-- TASK TITLE -->
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <h4>@Model.Titulo</h4>
+                        </div>
+                    </div>
+                    <!-- TASK DESC -->
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <p>@Html.Raw(Model.Descricao) </p>
+                        </div>
+                    </div>
+                    <!-- END TASK DESC -->  
+                    <div class="form-body">
+                        <div class="col-md-12" id="divComentarios" style="overflow-y:auto; ">
+                            <ul class="media-list">
+                                @foreach (var item in Model.lstPostComentario)
+                                {
+                                    { imgUserComent = item.NomeUsuarioComentario.ToString().Split(' ')[0] + ".bmp"; }
+                                    <li>
+                                        <a class="pull-left" href="javascript:;">
+                                            <img class="todo-userpic" src="~/Content/assets/images/users/@imgUserComent" width="27px" height="27px">
+                                        </a>
+                                        <div class="media-body todo-comment">
+                                            <p class="todo-comment-head">
+                                                <span class="todo-comment-username">@item.NomeUsuarioComentario</span> &nbsp;
+                                                <span class="todo-comment-date">@item.DataInclusao</span>
+                                            </p>
+                                            <p class="todo-text-color">
+                                                @item.Descricao
+                                            </p>
+                                        </div>
+                                    </li>
+
+                                }
+
+                            </ul>
+                        </div>
+                    </div><br />
+                  
+                    @Html.Partial("Comentarios/_partialComentarios")
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/apps/scripts/todo-2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Portal/Posts.js"></script>
+    <script>
+        bkLib.onDomLoaded(function () {
+            new nicEditor({ fullPanel: true }).panelInstance('txtArea');
+        });
+    </script>
+
+}
+
+

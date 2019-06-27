@@ -1,0 +1,321 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+    <link href="~/Content/assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/plugins/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style.css" rel="stylesheet">
+
+    <style>
+        .card .m-b-0 {
+            padding: 0px 20px 0px 20px;
+        }
+
+        .card-header {
+            border-bottom: none !important;
+        }
+    </style>
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body wizard-content">
+                    @*<h4 class="card-title">Step wizard</h4>
+                    <h6 class="card-subtitle">You can find the <a href="http://www.jquery-steps.com" target="_blank">offical website</a></h6>*@
+                    <form id="form" action="#" class="tab-wizard wizard-circle">
+                        <!-- Step 3 -->
+                        <h6>Especificação</h6>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div id="idAccordion" role="tablist" class="minimal-faq" aria-multiselectable="true">
+                                            <div class="card m-b-0">
+                                                <div class="card-header" role="tab" id="idHeaderMEO">
+                                                    <h5 class="mb-0">
+                                                        <a class="collapsed link" data-toggle="collapse" data-parent="#idAccordion" href="#collapseDownload" aria-expanded="false" aria-controls="collapseDownload">
+                                                            TEMPLATE MEO
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapseDownload" class="collapse show" role="tabpanel" aria-labelledby="idHeaderMEO">
+                                                    <div class="card-body">
+                                                        <p><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span>Documento Template 1 teste.docx </span><i class="fa fa-cloud-download"></i> <span>Download</span></a></p>
+                                                        <p><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span>Documento Template 2 teste.docx </span><i class="fa fa-cloud-download"></i> <span>Download</span></a></p>
+                                                        <p><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span>Documento Template 3 teste.docx </span><i class="fa fa-cloud-download"></i> <span>Download</span></a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card m-b-0">
+                                                <div class="card-header" role="tab" id="idHeaderDetalhesProjeto">
+                                                    <h5 class="mb-0">
+                                                        <a class="collapsed link" data-toggle="collapse" data-parent="#idAccordion" href="#collapseDetalhesProjeto" aria-expanded="false" aria-controls="collapseDetalhesProjeto">
+                                                            DETALHES DO PROJETO
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapseDetalhesProjeto" class="collapse" role="tabpanel" aria-labelledby="idHeaderDetalhesProjeto">
+                                                    <div class="" style="background: #1976d2; border-color: #1976d2;">
+                                                        <table class="text-white" style="width: 100%; font-size:large; font-weight: bold;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Projeto número 2</td>
+                                                                    <td>16/02/2019</td>
+                                                                    <td>Marcelo Castilho</td>
+                                                                    <td>Subsídios</td>
+                                                                    <td>27</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <div class="card-body">
+                                                        @*<p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                            <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                            <p>Nível da OY: <b>Moderada</b></p>
+                                                            <p>Data de entrega: <b>20/07/2019</b></p>*@
+
+                                                        <table class="" style="width: 100%;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card m-b-0">
+                                                <div class="card-header" role="tab" id="idHeaderEspecificacaoProjeto">
+                                                    <h5 class="mb-0">
+                                                        <a class="collapsed link" data-toggle="collapse" data-parent="#idAccordion" href="#collapseEspecificacaoProjeto" aria-expanded="false" aria-controls="collapseEspecificacaoProjeto">
+                                                            ESPECIFICAÇÃO DO PROJETO
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapseEspecificacaoProjeto" class="collapse" role="tabpanel" aria-labelledby="idHeaderEspecificacaoProjeto">
+                                                    <div class="card-body">
+                                                        <div class="fallback dropzone">
+                                                            <input name="file" type="file" multiple />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card m-b-0">
+                                                <div class="card-header" role="tab" id="idHeaderDesenvolvedores">
+                                                    <h5 class="mb-0">
+                                                        <a class="collapsed link" data-toggle="collapse" data-parent="#idAccordion" href="#collapseDesenvolvedores" aria-expanded="false" aria-controls="collapseDesenvolvedores">
+                                                            DESENVOLVEDORES
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapseDesenvolvedores" class="collapse" role="tabpanel" aria-labelledby="idHeaderDesenvolvedores" style="padding-bottom: 20px;">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            Desenvolvedor líder:
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <select class="form-control custom-select"><option>teste1</option><option>teste2</option><option>teste3</option></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            Desenvolvedor:
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <select class="form-control custom-select"><option>teste1</option><option>teste2</option><option>teste3</option></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            Desenvolvedor:
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <select class="form-control custom-select"><option>teste1</option><option>teste2</option><option>teste3</option></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                                            <label for="intType1">Interview Type :</label>
+                                            <select class="custom-select form-control" id="intType1" data-placeholder="Type to search cities" name="intType1">
+                                                <option value="Banquet">Normal</option>
+                                                <option value="Fund Raiser">Difficult</option>
+                                                <option value="Dinner Party">Hard</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Location1">Location :</label>
+                                            <select class="custom-select form-control" id="Location1" name="location">
+                                                <option value="">Select City</option>
+                                                <option value="India">India</option>
+                                                <option value="USA">USA</option>
+                                                <option value="Dubai">Dubai</option>
+                                            </select>
+                                        </div>*@
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Step 4 -->
+                        <h6>Parecer Arquiteto</h6>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div id="idAccordionParecerArquiteto" role="tablist" class="minimal-faq" aria-multiselectable="true">
+                                            <div class="card m-b-0">
+                                                <div class="card-header" role="tab" id="idHeaderEspecificacao">
+                                                    <h5 class="mb-0">
+                                                        <a class="collapsed link" data-toggle="collapse" data-parent="#idAccordionParecerArquiteto" href="#collapseEspecificacao" aria-expanded="false" aria-controls="collapseEspecificacao">
+                                                            ESPECIFICAÇÃO DO PROJETO
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapseEspecificacao" class="collapse show" role="tabpanel" aria-labelledby="idHeaderEspecificacao">
+                                                    <div class="card-body">
+                                                        <p><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span>Documento de Especificação 1 teste.docx </span><i class="fa fa-cloud-download"></i> <span>Download</span></a></p>
+                                                        <p><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span>Documento de Especificação 2 teste.docx </span><i class="fa fa-cloud-download"></i> <span>Download</span></a></p>
+                                                        <p><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span>Documento de Especificação 3 teste.docx </span><i class="fa fa-cloud-download"></i> <span>Download</span></a></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group float-right">
+                                                            <button id="btnRecusar" class="btn btn-danger" data-toggle="modal" data-target="#idResp">Recusar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        @*<section>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="behName1">Behaviour :</label>
+                                            <input type="text" class="form-control" id="behName1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="participants1">Confidance</label>
+                                            <input type="text" class="form-control" id="participants1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="participants1">Result</label>
+                                            <select class="custom-select form-control" id="participants1" name="location">
+                                                <option value="">Select Result</option>
+                                                <option value="Selected">Selected</option>
+                                                <option value="Rejected">Rejected</option>
+                                                <option value="Call Second-time">Call Second-time</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="decisions1">Comments</label>
+                                            <textarea name="decisions" id="decisions1" rows="4" class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Rate Interviwer :</label>
+                                            <div class="c-inputs-stacked">
+                                                <label class="inline custom-control custom-checkbox block">
+                                                    <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">1 star</span>
+                                                </label>
+                                                <label class="inline custom-control custom-checkbox block">
+                                                    <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">2 star</span>
+                                                </label>
+                                                <label class="inline custom-control custom-checkbox block">
+                                                    <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">3 star</span>
+                                                </label>
+                                                <label class="inline custom-control custom-checkbox block">
+                                                    <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">4 star</span>
+                                                </label>
+                                                <label class="inline custom-control custom-checkbox block">
+                                                    <input type="checkbox" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description ml-0">5 star</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>*@
+                    </form>
+
+                    <!-- sample modal content -->
+                    <div id="idResp" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Motivo da recusa do arquiteto</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="message-text" class="control-label">Recusa:</label>
+                                            <textarea class="form-control" id="message-text"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-danger waves-effect waves-light">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/plugins/switchery/dist/switchery.min.js"></script>
+    <script src="~/Content/assets/plugins/dropzone-master/dist/dropzone.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.js-switch').each(function () {
+                new Switchery($(this)[0], $(this).data());
+            });
+        });
+
+        $("#form").submit(function (e) {
+            e.preventDefault();
+        });
+    </script>
+}

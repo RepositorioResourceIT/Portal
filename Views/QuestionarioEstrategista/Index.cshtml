@@ -1,0 +1,397 @@
+﻿@using Itau.PO.Domain.Enums
+
+@model IEnumerable<Itau.PO.UI.MVC.ViewModel.QuestionarioEstrategistaViewModel>
+
+@{
+    ViewBag.Title = "Questionário Estrategista";
+}
+
+@section css{
+    <style>
+        .bordaArredondada {
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .textoBranco {
+            color: white;
+        }
+
+        .textoPreto {
+            color: black;
+        }
+
+        .textoBranco, .textoPreto {
+            font-weight: 600;
+        }
+
+        .divCinza {
+            background-color: lightgray;
+        }
+
+        .divVerde {
+            background-color: forestgreen;
+        }
+
+        .divAmarela {
+            background-color: goldenrod;
+        }
+
+        .divVermelha {
+            background-color: red;
+        }
+
+        .divBranca {
+            background-color: white;
+            border-color: black;
+        }
+
+        .iCinza {
+            color: lightgray;
+        }
+
+        .iVerde {
+            color: forestgreen;
+        }
+
+        .iAmarelo {
+            color: goldenrod;
+        }
+
+        .iVermelho {
+            color: red;
+        }
+
+        .iBranco {
+            color: white;
+            border-style: solid;
+            border: 1px;
+            box-shadow: 2px 2px 2px gray;
+        }
+
+        .divCinza, .divVerde, .divAmarela, .divVermelha, .divBranca {
+            border: 1px;
+            border-style: solid;
+            box-shadow: 2px 2px 2px gray;
+        }
+
+        .divCinza, .divVerde, .divAmarela, .divVermelha {
+            border-color: white;
+        }
+
+            .divCinza, .divVerde, .divAmarela, .divVermelha, .divBranca,
+            .divCinza span, .divVerde span, .divAmarela span, .divVermelha span, .divBranca span {
+                cursor: pointer;
+            }
+
+        .cursorPointer {
+            cursor: pointer;
+        }
+
+        .divIndicadores {
+            height: 32px;
+            width: 98%;
+            position: relative;
+            top: -10px;
+            padding-top: 10px;
+            border: solid;
+            border-width: 1px;
+            border-radius: 10px;
+            border-color: lightgray;
+        }
+
+        .divFiltros {
+            position: absolute;
+            border: solid;
+            height: 30%;
+            width: 82%;
+            left: 9%;
+            top: 35%;
+            border-width: 1px;
+            border-radius: 10px;
+            border-color: lightgray;
+        }
+
+        #divCardFiltros {
+            min-width: 270px;
+        }
+
+        #btnAdicionar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin-right: 15px;
+        }
+    </style>
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    @using (Html.BeginForm("Cadastrar", "QuestionarioEstrategista", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-5">
+                <div id="divCardFiltros" class="card">
+                    <div class="card-body cardBodyFiltros" style="padding-bottom: 6%;">
+                        <h5 class="text-center cursorPointer todosRegistros">Total: 12</h5>
+                        <input type="hidden" id="hdnTextoBotão" />
+
+                        <div class="divFiltros">
+                        </div>
+
+                        <div class="row justify-content-center" style="padding-top: 3%;">
+                            <div class="col-2">
+                                <div class="divCinza text-center bordaArredondada textoBranco" data-tipo="@EnumsQuestionarioRisco.A_iniciar.DescriptionAttr()">
+                                    <span>@Model.Where(m => m.IdQuestionarioRisco == EnumsQuestionarioRisco.A_iniciar.GetHashCode()).Count()</span>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="divVerde text-center bordaArredondada textoBranco" data-tipo="@EnumsQuestionarioRisco.Em_andamento.DescriptionAttr()">
+                                    <span>@Model.Where(m => m.IdQuestionarioRisco == EnumsQuestionarioRisco.Em_andamento.GetHashCode()).Count()</span>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="divAmarela text-center bordaArredondada textoBranco" data-tipo="@EnumsQuestionarioRisco.Risco_atraso.DescriptionAttr()">
+                                    <span>@Model.Where(m => m.IdQuestionarioRisco == EnumsQuestionarioRisco.Risco_atraso.GetHashCode()).Count()</span>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="divVermelha text-center bordaArredondada textoBranco" data-tipo="@EnumsQuestionarioRisco.Atrasado.DescriptionAttr()">
+                                    <span>@Model.Where(m => m.IdQuestionarioRisco == EnumsQuestionarioRisco.Atrasado.GetHashCode()).Count()</span>
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="divBranca text-center bordaArredondada textoPreto" style="position: relative;" data-tipo="@EnumsQuestionarioRisco.Concluido.DescriptionAttr()">
+                                    <div style="position: absolute; left: 70%; top: -5%; color: #67757c">
+                                        <i class="fa fa-check"></i>
+                                    </div>
+
+                                    <span>@Model.Where(m => m.IdQuestionarioRisco == EnumsQuestionarioRisco.Concluido.GetHashCode()).Count()</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-7">
+                <div class="buttons">
+                    <button class="btn waves-effect waves-light btn-info card" id="btnAdicionar">
+                        Novo
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="tbQuestionarioEstrategista" class="table table-hover table-striped table-bordered tabela text-nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Questionário</th>
+                                        <th>Carteira</th>
+                                        <th>Assunto</th>
+                                        <th>Abertura</th>
+                                        <th>Implantação</th>
+                                        <th>Risco</th>
+                                        <th>Status</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var questionarioEstrategista in Model)
+                                    {
+                                        <tr id="@questionarioEstrategista.IdQuestionarioEstrategista">
+                                            <td>@questionarioEstrategista.IdQuestionarioEstrategista</td>
+                                            <td>@questionarioEstrategista.NomeQuestionario</td>
+                                            <td>@questionarioEstrategista.NomeCarteira</td>
+                                            <td>@questionarioEstrategista.NomeAssunto</td>
+                                            <td>@questionarioEstrategista.DataAbertura</td>
+                                            <td>@string.Format("{0:dd/MM/yyyy hh:mm}", @questionarioEstrategista.DataImplantacao)</td>
+
+                                            @if (questionarioEstrategista.IdQuestionarioRisco == EnumsQuestionarioRisco.A_iniciar.GetHashCode())
+                                            {
+                                                <td><i class="fa fa-square m-r-5 iCinza"></i>@questionarioEstrategista.NomeQuestionarioRisco</td>
+                                            }
+                                            else if (questionarioEstrategista.IdQuestionarioRisco == EnumsQuestionarioRisco.Em_andamento.GetHashCode())
+                                            {
+                                                <td><i class="fa fa-square m-r-5 iVerde"></i>@questionarioEstrategista.NomeQuestionarioRisco</td>
+                                            }
+                                            else if (questionarioEstrategista.IdQuestionarioRisco == EnumsQuestionarioRisco.Risco_atraso.GetHashCode())
+                                            {
+                                                <td><i class="fa fa-square m-r-5 iAmarelo"></i>@questionarioEstrategista.NomeQuestionarioRisco</td>
+                                            }
+                                            else if (questionarioEstrategista.IdQuestionarioRisco == EnumsQuestionarioRisco.Atrasado.GetHashCode())
+                                            {
+                                                <td><i class="fa fa-square m-r-5 iVermelho"></i>@questionarioEstrategista.NomeQuestionarioRisco</td>
+                                            }
+                                            else if (questionarioEstrategista.IdQuestionarioRisco == EnumsQuestionarioRisco.Concluido.GetHashCode())
+                                            {
+                                                <td><i class="fa fa-check m-r-5"></i>@questionarioEstrategista.NomeQuestionarioRisco</td>
+                                            }
+                                            else
+                                            {
+                                                <td><i class="fa m-r-5"></i>Desconhecido</td>
+                                            }
+
+                                            <td>@questionarioEstrategista.NomeQuestionarioEtapa</td>
+
+                                            <td class="text-center">
+                                                @if (questionarioEstrategista.DataImplantacao != null)
+                                                {
+                                                    @Html.ActionLink(" ", "Visualizar", new { idQuestionarioEstrategista = questionarioEstrategista.IdQuestionarioEstrategista }, new { @class = "fa fa-eye text-inverse m-r-10" })
+                                                }
+                                                else
+                                                {
+                                                    @Html.ActionLink(" ", "Editar", new { idQuestionarioEstrategista = questionarioEstrategista.IdQuestionarioEstrategista }, new { @class = "fa fa-pencil text-inverse m-r-10" })
+                                                    <a href="#"><i class="fa fa-close text-danger deleteAlert"></i></a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+
+                                    @*<tr>
+                                            <td>7783</td>
+                                            <td>Exemplo 1</td>
+                                            <td>Carteira 1</td>
+                                            <td>Assunto 1</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td><i class="fa fa-square m-r-5 iCinza"></i>A iniciar</td>
+                                            <td>Homologação</td>
+                                            <td class="text-center"><i class="fa fa-pencil m-r-5"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>7793</td>
+                                            <td>Exemplo 2</td>
+                                            <td>Carteira 2</td>
+                                            <td>Assunto 2</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td><i class="fa fa-square m-r-5 iVerde"></i>Em andamento</td>
+                                            <td>Homologação</td>
+                                            <td class="text-center"><i class="fa fa-pencil m-r-5"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>7800</td>
+                                            <td>Exemplo 3</td>
+                                            <td>Carteira 3</td>
+                                            <td>Assunto 3</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td><i class="fa fa-square m-r-5 iAmarelo"></i>Risco de atraso</td>
+                                            <td>Homologação</td>
+                                            <td class="text-center"><i class="fa fa-pencil m-r-5"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>7812</td>
+                                            <td>Exemplo 4</td>
+                                            <td>Carteira 4</td>
+                                            <td>Assunto 4</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td><i class="fa fa-square m-r-5 iVermelho"></i>Atrasado</td>
+                                            <td>Homologação</td>
+                                            <td class="text-center"><i class="fa fa-pencil m-r-5"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>7827</td>
+                                            <td>Exemplo 5</td>
+                                            <td>Carteira 5</td>
+                                            <td>Assunto 5</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td><i class="fa fa-square m-r-5 iVermelho"></i>Atrasado</td>
+                                            <td>Homologação</td>
+                                            <td class="text-center"><i class="fa fa-pencil m-r-5"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>7944</td>
+                                            <td>Exemplo 6</td>
+                                            <td>Carteira 6</td>
+                                            <td>Assunto 6</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td>XX/XX/XXXX</td>
+                                            <td><i class="fa fa-check m-r-5"></i>Concluído</td>
+                                            <td></td>
+                                            <td class="text-center"><i class="fa fa-pencil m-r-5"></i></td>
+                                        </tr>*@
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="~/Content/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/js/buttons.flash.min.js"></script>
+    <script src="~/Content/js/jszip.min.js"></script>
+    <script src="~/Content/js/pdfmake.min.js"></script>
+    <script src="~/Content/js/vfs_fonts.js"></script>
+    <script src="~/Content/js/buttons.html5.min.js"></script>
+    <script src="~/Content/js/buttons.print.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/Portal/jsQuestionarioEstrategista.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#tbQuestionarioEstrategista').DataTable();
+
+            $('#divCardFiltros').click(function (event) {
+                var valor = "";
+
+                if ($(event.target).is('.divCinza, .divCinza span')) {
+                    valor = $(".divCinza").attr("data-tipo");
+                    RegistrosSelecionados(valor);
+                } else if ($(event.target).is('.divVerde, .divVerde span')) {
+                    valor = $(".divVerde").attr("data-tipo");
+                } else if ($(event.target).is('.divAmarela, .divAmarela span')) {
+                    valor = $(".divAmarela").attr("data-tipo");
+                } else if ($(event.target).is('.divVermelha, .divVermelha span')) {
+                    valor = $(".divVermelha").attr("data-tipo");
+                } else if ($(event.target).is('.divBranca, .divBranca span')) {
+                    valor = $(".divBranca").attr("data-tipo");
+                } else if ($(event.target).is('.todosRegistros, .todosRegistros span')) {
+                    TodosRegistros();
+                }
+
+                RegistrosSelecionados(valor);
+            });
+
+            function RegistrosSelecionados(valor) {
+                table
+                    .columns(6)
+                    .search(valor)
+                    .draw();
+            }
+
+            function TodosRegistros() {
+                table
+                    .column()
+                    .search('')
+                    .draw();
+            }
+        });
+    </script>
+}

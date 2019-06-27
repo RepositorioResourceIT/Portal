@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Itau.PO.UI.MVC.ViewModel.TemplateCategoriaViewModel>
+
+@{
+    ViewBag.Title = "Templates";
+}
+
+@section css{
+    <style>
+        .btnNovo {
+            padding-bottom: 10px;
+        }
+
+        .tabela {
+            width: 100%;
+        }
+
+        h4 {
+            display: inline;
+        }
+
+        .rowSpace {
+            margin-bottom: 10px;
+        }
+
+        .tooltip-item {
+            background: rgba(0, 0, 0, 0) !important;
+            font-weight: inherit !important;
+        }
+
+        .tooltip-text {
+            padding: 1.31em 1.21em 1.21em 1.31em !important;
+        }
+
+        .mytooltip {
+            z-index: auto !important;
+        }
+
+        .tooltip-content {
+            left: 50% !important;
+            margin-left: -329px !important;
+            background: #028ee1 !important;
+            color: #fff !important;
+            border-radius: 10px !important;
+        }
+
+            .tooltip-content:after {
+                left: 90% !important;
+                border-top-color: #028ee1 !important;
+            }
+
+        .mytooltip:hover .tooltip-content {
+            pointer-events: auto !important;
+        }
+
+        a {
+            padding-right: 5px;
+        }
+
+        .tdClass {
+            width: 120px;
+        }
+    </style>
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            @foreach (var templateCategoria in Model)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="row rowSpace">
+                                    <div class="col-md-12">
+                                        <h4 class="card-title">@templateCategoria.Nome</h4>
+
+                                        <a href="#" class="fa fa-plus float-right anchorAdicionar" data-id="@templateCategoria.IdCategoria"></a>
+                                    </div>
+                                </div>
+
+                                @if (templateCategoria.lstTemplateDocumento.Count > 0)
+                                {
+                                    <table class="tabela table table-hover table-striped table-bordered">
+                                        <tbody>
+                                            @foreach (var templateDocumento in templateCategoria.lstTemplateDocumento)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <span>@templateDocumento.NomeArquivo</span>
+                                                    </td>
+                                                    <td class="tdClass">
+                                                        <span class="mytooltip tooltip-effect-1">
+                                                            <a href="#"><i class="fa fa-info-circle"></i></a>
+                                                            <span class="tooltip-content clearfix" style="text-align: justify;">
+                                                                <span class="tooltip-text">@templateDocumento.Descricao</span>
+                                                            </span>
+                                                        </span>
+
+                                                        @Html.ActionLink(" ", "Download", new { idTemplateDocumento = templateDocumento.IdTemplateDocumento }, htmlAttributes: new { @class = "fa fa-cloud-download" })
+                                                        <a href="#" class="fa fa-pencil anchorEditar" data-id="@templateDocumento.IdTemplateDocumento"></a>
+                                                        <a href="#" class="fa fa-close anchorExcluir deleteAlert" data-id="@templateDocumento.IdTemplateDocumento" data-url="@Url.Action("FileUploadAdicionarEditar", "Template")"></a>
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="modal fade" id="divModal" role="dialog" data-url="@Url.Action("FileUploadAdicionarEditar", "Template")"></div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/Portal/jsTemplate.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+}

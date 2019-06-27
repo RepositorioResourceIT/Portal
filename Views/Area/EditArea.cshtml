@@ -1,0 +1,58 @@
+﻿@model  Itau.PO.UI.MVC.ViewModel.AreaViewModel
+@{
+    ViewBag.Title = "Área";
+}
+
+<div class="container-fluid">
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(model => model.DataInclusao)
+        @Html.HiddenFor(model => model.DataAlteracao)
+        @Html.HiddenFor(model => model.DataExclusao)
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-outline-info">
+                    @Html.HiddenFor(model => model.IdArea)
+                    <div class="card-body">
+                        <form action="#" class="form-horizontal form-bordered">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-6">
+                                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-6">
+                                            @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <divs class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-actions right todo-form-actions text-right">
+                                            <div class="row">
+                                                <div class="offset-sm-3 col-md-12">
+                                                    @Html.ActionLink("Voltar", "Index", "Area", null, new { @class = "btn btn-inverse", required = "" })
+                                                    <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>Salvar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </divs>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Itau.PO.UI.MVC.ViewModel.PostViewModel>
+
+@{
+    ViewBag.Title = "Posts";
+}
+
+@section css{
+    <link href="~/Content/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <style>
+        .container-fluid .row .col-12 .buttons {
+            max-height: 100%;
+            max-width: 100%;
+            display: flex;
+            padding-bottom: 10px;
+            float: right;
+        }
+    </style>
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    @using (Html.BeginForm("Cadastrar", "Posts", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-12">
+                <div class="buttons">
+                    <button id="sample_editable_1_new" class="btn waves-effect waves-light btn-info">
+                        Novo
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsiv">
+                            <table id="tbPosts" class="display nowrap table table-hover table-striped table-bordered tabela text-nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Postado por</th>
+                                        <th>Título</th>
+                                        <th>Data postagem</th>
+                                        <th class="text-nowrap">Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr id="@item.IdPost">
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NomeUsuarioCriacao)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Titulo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DataInclusao)
+                                            </td>
+
+                                            <td style="text-align:center">
+                                                @Html.ActionLink(" ", "Visualizar", new { IdPost = item.IdPost }, new { @class = "fa fa-eye text-inverse m-r-10" })
+                                                @Html.ActionLink(" ", "Editar", new { IdPost = item.IdPost }, new { @class = "fa fa-pencil text-inverse m-r-10" })
+                                                <a href="#"><i class="fa fa-close text-danger deleteAlert"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts
+{
+    <script src="~/Content/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="~/Content/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/js/buttons.flash.min.js"></script>
+    <script src="~/Content/js/jszip.min.js"></script>
+    <script src="~/Content/js/pdfmake.min.js"></script>
+    <script src="~/Content/js/vfs_fonts.js"></script>
+    <script src="~/Content/js/buttons.html5.min.js"></script>
+    <script src="~/Content/js/buttons.print.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Portal/Posts.js"></script>
+    <!-- end - This is for export functionality only -->
+  
+}

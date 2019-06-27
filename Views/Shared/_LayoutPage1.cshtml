@@ -1,0 +1,467 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Operações Itaú</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/images/favicon.png">
+    <title>Portal Operações Itaú</title>
+    <!-- Bootstrap Core CSS -->
+    @Styles.Render("~/Content/assets/plugins/bootstrap/css/bootstrap.min.css")
+    @Styles.Render("~/Content/assets/plugins/wizard/steps.css")
+    <!-- Custom CSS -->
+    @Styles.Render("~/Content/css/style.css")
+    <!-- You can change the theme colors from here -->
+    @Styles.Render("~/Content/css/colors/blue.css")
+    @RenderSection("css", false)
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js")
+    <![endif]-->
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        #chartdiv {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+    @Scripts.Render("~/Content/assets/plugins/nicEditor/nicEdit.js")
+    <script type="text/javascript">
+        bkLib.onDomLoaded(function () { nicEditors.allTextAreas() });
+    </script>
+</head>
+<body class="fix-header card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                        <!-- Logo icon --><b>
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <img src="~/Content/assets/images/logo.png" alt="homepage" class="dark-logo" />
+                            <!-- Light Logo icon -->
+                            <img src="~/Content/assets/images/logo.png" alt="homepage" class="light-logo" />
+                        </b>
+                        <!--End Logo icon -->
+                        <!-- Logo text --><span>
+                            <!-- dark Logo text -->
+                            <img src="~/Content/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                            <!-- Light Logo text -->
+                            <img src="~/Content/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
+                        </span>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- This is  -->
+                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                        <!-- ============================================================== -->
+                        <!-- Comment -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="mdi mdi-message"></i>
+                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                            </a>
+                            <div class="dropdown-menu mailbox scale-up-left">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">Postagens</div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center" style="overflow: hidden; width: auto; height: 250px;">
+                                            <!-- Message -->
+
+                                            <a href="@Url.Action("Visualizar","Posts")">
+                                                <div class="user-img"> <img src="~/Content/assets/images/users/reinaldo.bmp" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                                <div class="mail-contnet">
+                                                    <h5>Reinaldo Mascarenhas</h5> <span class="mail-desc">Reunião de gestores</span> <span class="time">19/05 9:30</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                <div class="user-img"> <img src="~/Content/assets/images/users/reinaldo.bmp" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                                <div class="mail-contnet">
+                                                    <h5>Reinaldo Mascarenhas</h5> <span class="mail-desc">Lançamento novo sistema.</span> <span class="time">19/05 9:30</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                <div class="user-img"> <img src="~/Content/assets/images/users/rafael.bmp" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>
+                                                <div class="mail-contnet">
+                                                    <h5>Rafael Gass</h5> <span class="mail-desc">Aviso</span> <span class="time">18/05 17:00</span>
+                                                </div>
+                                            </a>
+                                            <a href="#">
+                                                <div class="user-img"> <img src="~/Content/assets/images/users/reinaldo.bmp" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                                <div class="mail-contnet">
+                                                    <h5>Reinaldo Mascarenhas</h5> <span class="mail-desc">Lançamento novo sistema.</span> <span class="time">17/05 14:30</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="#">
+                                                <div class="user-img"> <img src="~/Content/assets/images/users/rafael.bmp" alt="user" class="img-circle"> <span class="profile-status away pull-right"></span> </div>
+                                                <div class="mail-contnet">
+                                                    <h5>Rafael Gass</h5> <span class="mail-desc">Aviso</span> <span class="time">16/05 17:00</span>
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center" href="@Url.Action("Index","Posts")"> <strong>Visualizar todas postagens</strong> <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- End Comment -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav my-lg-0">
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item hidden-sm-down search-box">
+                            <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
+                            <form class="app-search">
+                                <input type="text" class="form-control" placeholder="Pressione enter para buscar"> <a class="srh-btn"><i class="ti-close"></i></a>
+                            </form>
+                        </li>
+
+                        <!-- ============================================================== -->
+                        <!-- Language -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            @*<a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="flag-icon flag-icon-br"></i></a>*@
+                            @*<div class="dropdown-menu dropdown-menu-right scale-up"> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-br"></i> India</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-fr"></i> French</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-cn"></i> China</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-de"></i> Dutch</a> </div>*@
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- Profile -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/Content/assets/images/users/reinaldo.bmp" alt="user" class="profile-pic" /></a>
+                            <div class="dropdown-menu dropdown-menu-right scale-up">
+                                <ul class="dropdown-user">
+                                    <li>
+                                        <div class="dw-user-box">
+                                            <div class="u-img"><img src="~/Content/assets/images/users/reinaldo.bmp" alt="user"></div>
+                                            <div class="u-text">
+                                                <h4>Reinaldo Mascarenhas</h4>
+                                                <p class="text-muted">email@itau.com</p><a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#"><i class="ti-user"></i> Meus Dados</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#"><i class="ti-settings"></i> Configurações da Conta</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#"><i class="fa fa-power-off"></i> Sair</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- User profile -->
+                <div class="user-profile">
+                    <!-- User profile image -->
+                    <div class="profile-img">
+                        <img src="~/Content/assets/images/users/reinaldo.bmp" alt="user" />
+                        <!-- this is blinking heartbit-->
+                        <div class="notify setpos"> <span class="heartbit"></span> <span class="point"></span> </div>
+                    </div>
+                    <!-- User profile text-->
+                    <div class="profile-text">
+                        <h5>Reinaldo Mascarenhas</h5>
+                        <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="mdi mdi-settings"></i></a>
+
+                        <a href="pages-login.html" class="" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a>
+
+                        <div class="dropdown-menu animated flipInY">
+                            <!-- text-->
+                            <a href="#" class="dropdown-item"><i class="ti-user"></i> Meus Dados</a>
+                            <!-- text-->
+                            <!-- text-->
+                            <div class="dropdown-divider"></div>
+                            <!-- text-->
+                            <a href="#" class="dropdown-item"><i class="ti-settings"></i>Configurações da Conta</a>
+                            <!-- text-->
+                            <div class="dropdown-divider"></div>
+                            <!-- text-->
+                            <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Sair</a>
+                            <!-- text-->
+                        </div>
+                    </div>
+                </div>
+                <!-- End User profile text-->
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="nav-devider"></li>
+                        <li class="nav-small-cap">PRINCIPAL</li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="@Url.Action("Index","Home")" aria-expanded="false"><i class="mdi mdi-home"></i><span class="hide-menu">Home</span></a>
+
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="@Url.Action("Index","Dashboard")" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
+                            @*<ul aria-expanded="false" class="collapse">
+                                    <li><a href="index.html">Minimal </a></li>
+                                    <li><a href="index2.html">Analytical</a></li>
+                                    <li><a href="index3.html">Demographical</a></li>
+                                    <li><a href="index4.html">Modern</a></li>
+                                </ul>*@
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Gestão de Projetos</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="app-calendar.html">Novo Projeto</a></li>
+                                <li><a href="app-chat.html">Consultar Projetos</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Ocorrências <span class="label label-rouded label-danger pull-right">25</span></span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="ui-cards.html">Nova Ocorrência </a></li>
+                                <li><a href="ui-user-card.html">Consultar Ocorrência</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-bar-chart-o"></i><span class="hide-menu">Indicadores/Relatórios</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="#">Relatorio Projetos</a></li>
+                                <li><a href="#">Relatório Indicadores</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-small-cap">ADMINISTRATIVO</li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-cog"></i><span class="hide-menu">Soluções</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="#">Monit de Robôs<br />Softwares</a></li>
+                                <li><a href="#">Softwares</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user-o"></i><span class="hide-menu">Usuários</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="@Url.Action("Index","Usuario")">Manut. de Usuários</a></li>
+                                <li><a href="@Url.Action("SolicitarAcessoUsuario","Usuario")">Solicitar acessos</a></li>
+                                <li><a href="@Url.Action("Index","Permissao")">Permissões Perfil</a></li>
+
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-telegram"></i><span class="hide-menu">Posts</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/Posts/Index">Posts</a></li>
+                                <li><a href="~/Posts/CadastrarEditar">Novo Post</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-group"></i><span class="hide-menu">Áreas</span></a>
+                            @*<a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa-group"></i><span class="hide-menu">Áreas</span></a>*@
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="@Url.Action("Index","Area")">Visualizar áreas</a></li>
+                                <li><a href="@Url.Action("CreateArea","Area")">Novo Área</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-support"></i><span class="hide-menu">Parâmetro</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/Parametro/Index">Parâmetro</a></li>
+                                <li><a href="~/Parametro/CreateParametrizacao">Novo Parâmetro</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa fa-user-circle-o"></i><span class="hide-menu">Perfil</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="~/Perfil/Index">Perfil</a></li>
+                                <li><a href="~/Perfil/CreatePerfil">Novo Perfil</a></li>
+                            </ul>
+                        </li>
+                        @*<li>
+                                <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-brush"></i><span class="hide-menu">Icons</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="icon-material.html">Material Icons</a></li>
+                                    <li><a href="icon-fontawesome.html">Fontawesome Icons</a></li>
+                                    <li><a href="icon-themify.html">Themify Icons</a></li>
+                                    <li><a href="icon-linea.html">Linea Icons</a></li>
+                                    <li><a href="icon-weather.html">Weather Icons</a></li>
+                                    <li><a href="icon-simple-lineicon.html">Simple Lineicons</a></li>
+                                    <li><a href="icon-flag.html">Flag Icons</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-map-marker"></i><span class="hide-menu">Maps</span></a>
+                                <ul aria-expanded="false" class="collapse">
+                                    <li><a href="map-google.html">Google Maps</a></li>
+                                    <li><a href="map-vector.html">Vector Maps</a></li>
+                                </ul>
+                            </li>*@
+
+
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor">@ViewBag.Title</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        @* @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">@ViewBag.Title</li>
+                    </ol>
+                </div>
+                <div>
+                    @*<button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>*@
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            @RenderBody()
+
+            @*@Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/bootstrap")
+                @RenderSection("scripts", required: false)*@
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <footer class="footer">
+        <p>&copy; @DateTime.Now.Year - Desenvolvido por Resource Tecnologia.</p>
+
+    </footer>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+
+    @Scripts.Render("~/Content/assets/plugins/jquery/jquery.min.js")
+    <!-- Bootstrap tether Core JavaScript -->
+    @Scripts.Render("~/Content/assets/plugins/bootstrap/js/popper.min.js")
+
+    @Scripts.Render("~/Content/assets/plugins/bootstrap/js/bootstrap.min.js")
+    <!-- slimscrollbar scrollbar JavaScript -->
+    @Scripts.Render("~/Content/js/jquery.slimscroll.js")
+    <!--Wave Effects -->
+    @Scripts.Render("~/Content/js/waves.js")
+    <!--Menu sidebar -->
+    @Scripts.Render("~/Content/js/sidebarmenu.js")
+    <!--stickey kit -->
+    @Scripts.Render("~/Content/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js")
+    @Scripts.Render("~/Content/assets/plugins/sparkline/jquery.sparkline.min.js")
+    <!--Custom JavaScript -->
+    @Scripts.Render("~/Content/js/custom.min.js")
+
+
+    <!--Custom JavaScript -->
+    @Scripts.Render("~/Content/assets/plugins/moment/min/moment.min.js")
+    @Scripts.Render("~/Content/assets/plugins/wizard/jquery.steps.min.js")
+    @Scripts.Render("~/Content/assets/plugins/wizard/jquery.validate.min.js")
+
+    <!-- Sweet-Alert  -->
+    @Scripts.Render("~/Content/assets/plugins/sweetalert/sweetalert.min.js")
+    @Scripts.Render("~/Content/assets/plugins/wizard/steps.js")
+
+    <!-- ============================================================== -->
+    <!-- Style switcher -->
+    <!-- ============================================================== -->
+    @Scripts.Render("~/Content/assets/plugins/styleswitcher/jQuery.style.switcher.js")
+
+    @RenderSection("scripts", false)
+</body>
+</html>

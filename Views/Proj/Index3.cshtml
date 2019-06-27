@@ -1,0 +1,213 @@
+﻿@model IEnumerable<Itau.PO.UI.MVC.ViewModel.PerfilViewModel>
+
+@{
+    ViewBag.Title = "Projeto";
+}
+
+@section css{
+    <link href="~/Content/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+
+}
+
+<style>
+    .container-fluid .row .col-12 .buttons {
+        max-height: 100%;
+        max-width: 100%;
+        display: flex;
+        padding-bottom: 10px;
+        float: right;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="buttons">
+                <button id="sample_editable_1_new" class="btn waves-effect waves-light btn-info">
+                    Novo
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="col-lg-12 col-xlg-12">
+                    <div class="card-body">
+                        @*<h4 class="card-title">Data Export</h4>*@
+                        @*<h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF &amp; Print</h6>*@
+                        <div class="table-responsive m-t-40">
+                            @*<div class="dataTables_wrapper" id="example23_wrapper">*@
+                            <div class="dt-buttons">
+                                <a tabindex="0" class="dt-button buttons-copy buttons-html5" aria-controls="example23" href="#">
+                                    <span>Copy</span>
+                                </a>
+                                <a tabindex="0" class="dt-button buttons-csv buttons-html5" aria-controls="example23" href="#">
+                                    <span>CSV</span>
+                                </a>
+                                <a tabindex="0" class="dt-button buttons-excel buttons-html5" aria-controls="example23" href="#">
+                                    <span>Excel</span>
+                                </a><a tabindex="0" class="dt-button buttons-pdf buttons-html5" aria-controls="example23" href="#">
+                                    <span>PDF</span>
+                                </a><a tabindex="0" class="dt-button buttons-print" aria-controls="example23" href="#">
+                                    <span>Print</span>
+                                </a>
+                            </div>
+                            <div class="dataTables_filter" id="example23_filter">
+                                <label>
+                                    Search:
+                                    <input aria-controls="example23" type="search" placeholder="">
+                                </label>
+                            </div>
+                            <div class="card m-b-0">
+                                <div class="card-header" role="tab" id="idHeaderDetalhesProjeto">
+                                    <h6 class="mb-0">
+                                        <a class="collapsed link" data-toggle="collapse" data-parent="#idAccordion" href="#collapseDetalhesProjeto" aria-expanded="false" aria-controls="collapseDetalhesProjeto">
+                                            Teste
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div id="collapseDetalhesProjeto" class="collapse" role="tabpanel" aria-labelledby="idHeaderDetalhesProjeto">
+                                    <div class="" style="background: #1976d2; border-color: #1976d2;">
+                                        <table class="text-white" style="width: 100%; font-size:large; font-weight: bold;">
+                                            <tbody>
+                                                <tr>
+                                                    @*<td>Projeto número 2</td>
+                                                        <td>16/02/2019</td>
+                                                        <td>Marcelo Castilho</td>
+                                                        <td>Subsídios</td>
+                                                        <td>27</td>*@
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="card-body">
+                                        @*<p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                            <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                            <p>Nível da OY: <b>Moderada</b></p>
+                                            <p>Data de entrega: <b>20/07/2019</b></p>*@
+
+                                        <table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="form-actions right todo-form-actions text-right">
+                                        <button class="btn btn-info right">Editar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card m-b-0">
+                                <div class="card-header" role="tab" id="idHeaderDetalhesProjeto">
+                                    <h6 class="mb-0">
+                                        <a class="collapsed link" data-toggle="collapse" data-parent="#idAccordion" href="#collapseDetalhesProjeto2" aria-expanded="false" aria-controls="collapseDetalhesProjeto">
+                                            Projeto
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div id="collapseDetalhesProjeto2" class="collapse" role="tabpanel" aria-labelledby="idHeaderDetalhesProjeto">
+                                    <div class="" style="background: #1976d2; border-color: #1976d2;">
+                                        <table class="text-white" style="width: 100%; font-size:large; font-weight: bold;">
+                                            <tbody>
+                                                <tr>
+                                                    @*<td>Projeto número 2</td>
+                                                        <td>16/02/2019</td>
+                                                        <td>Marcelo Castilho</td>
+                                                        <td>Subsídios</td>
+                                                        <td>27</td>*@
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="card-body">
+                                        @*<p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                            <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                            <p>Nível da OY: <b>Moderada</b></p>
+                                            <p>Data de entrega: <b>20/07/2019</b></p>*@
+
+                                        <table class="" style="width: 100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+
+                                                    <td>
+                                                        <p>Benefício financeiro: <b>R$ 10 MM</b></p>
+                                                        <p>Tem OY atrelada: <input type="checkbox" class="js-switch" data-size="small" data_color="#009efb" /></p>
+                                                        <p>Nível da OY: <b>Moderada</b></p>
+                                                        <p>Data de entrega: <b>20/07/2019</b></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="form-actions right todo-form-actions text-right">
+                                        <button class="btn btn-info">Editar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Portal/jsPerfil.js"></script>
+    <script src="~/Content/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/js/buttons.flash.min.js"></script>
+    <script src="~/Content/js/jszip.min.js"></script>
+    <script src="~/Content/js/pdfmake.min.js"></script>
+    <script src="~/Content/js/vfs_fonts.js"></script>
+    <script src="~/Content/js/buttons.html5.min.js"></script>
+    <script src="~/Content/js/buttons.print.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+}
+
+
+
+

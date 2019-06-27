@@ -1,0 +1,105 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+    <link href="~/Content/assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/plugins/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style.css" rel="stylesheet">
+
+    <style>
+        [type=checkbox]:checked, [type=checkbox]:not(:checked) {
+            position: relative !important;
+            left: 0px !important;
+            opacity: 1 !important;
+        }
+
+        .card .m-b-0 {
+            padding: 0px 20px 0px 20px;
+        }
+
+
+        .card-header {
+            border-bottom: none !important;
+        }
+    </style>
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body wizard-content">
+                    @*<h4 class="card-title">Step wizard</h4>
+        <h6 class="card-subtitle">You can find the <a href="http://www.jquery-steps.com" target="_blank">offical website</a></h6>*@
+                    <form id="form" action="#" class="tab-wizard wizard-circle">
+                        <!-- Step 1 -->
+                        <h6>Cadastro de Projetos <br /> 04/06/2019</h6>
+                        <section>
+                            @Html.Partial("Adicionar/_partialCadastro")
+                        </section>
+
+                        <!-- Step 2 -->
+                        <h6>Priorização<br /> 20/06/2019</h6>
+                        <section>
+                            @Html.Partial("Adicionar/_partialPriorizacao")
+                        </section>
+
+                        <!-- Step 3 -->
+                        <h6>Especificação<br /> 16/07/2019</h6>
+                        <section>
+                            @Html.Partial("Adicionar/_partialEspecificacao")
+                        </section>
+
+                        <!-- Step 4 -->
+                        <h6>Parecer Arquiteto<br /> 08/08/2019</h6>
+                        <section>
+                            @Html.Partial("Adicionar/_partialParecerArquitetoAceiteRecusa")
+                        </section>
+
+                        <!-- Step 5 -->
+                        <h6>Estimativa do desenvolvimento<br /> 20/08/2019</h6>
+                        <section>
+                            @Html.Partial("Adicionar/_partialEstimativaDesenvolvimento")
+                        </section>
+                        <!-- Step  -->
+                        <h6>Parecer Arquiteto<br /> 11/09/2019</h6>
+                        <section>
+                            @Html.Partial("Adicionar/_partialParecerArquiteto")
+                        </section>
+                    </form>
+
+                    @Html.Partial("Adicionar/_partialModalRecusaArquiteto")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/plugins/switchery/dist/switchery.min.js"></script>
+    <!-- Dropzone Plugin JavaScript -->
+    <script src="~/Content/assets/plugins/dropzone-master/dist/dropzone.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- ============================================================== -->
+    <!-- Style switcher -->
+    <!-- ============================================================== -->
+    @*<script src="~/Content/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>*@
+
+    <script>
+        $(document).ready(function () {
+            $('.js-switch').each(function () {
+                new Switchery($(this)[0], $(this).data());
+            });
+        });
+
+        $("#form").submit(function (e) {
+            e.preventDefault();
+        });
+    </script>
+}

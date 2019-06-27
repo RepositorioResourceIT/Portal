@@ -1,0 +1,138 @@
+﻿@model Itau.PO.UI.MVC.ViewModel.ProjetoViewModel
+
+<style>
+    .lblCheckbox {
+        display: block;
+    }
+
+    .divCheckbox span {
+        margin-top: 13px;
+    }
+</style>
+
+@using (Ajax.BeginForm("SalvarHorasTrabalhadas", "Proj", new AjaxOptions { HttpMethod = "POST", OnBegin = "return ValidarCamposPrioridade()", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }))
+{
+    @Html.HiddenFor(model => model.IdProjeto)
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <h4><label class="control-label">Priorização</label></h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NumeroOY, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.NumeroOY, htmlAttributes: new { @class = "form-control", placeholder = "Número da OY" })
+                        <span id="erroSpanNumeroOY" class="erro field-validation-valid text-danger small">O campo Número da OY é obrigatório.</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataFatal, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.DataFatal, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                        <span id="erroSpanDataFatal" class="erro field-validation-valid text-danger small">O campo Data Fatal é obrigatório.</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataMuro, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.DataMuro, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                        <span id="erroSpanDataMuro" class="erro field-validation-valid text-danger small">O campo Data Muro é obrigatório.</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="divCheckbox">
+                            <labe class="lblCheckbox">Tem demanda legal?</labe>
+                            @Html.CheckBoxFor(model => model.DemandaLegal, new { @class = "js-switch", data_color = "#009efb" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @*é necessario este campo?*@
+                        @Html.LabelFor(model => model.IdUsuarioExclusao, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(m => m.IdUsuarioExclusao
+                            , Model.lstUsuarioAnalistaViewModel as IEnumerable<SelectListItem>
+                            , htmlAttributes: new { @class = "form-control todo-taskbody-tags" })
+                        <span id="erroSpanAnalista" class="erro field-validation-valid text-danger small">O campo Analista é obrigatório.</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataTermino, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.DataTermino, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                        <span id="erroSpanDataTermino" class="erro field-validation-valid text-danger small">O campo Data Término é obrigatório.</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="divCheckbox">
+                            <label class="lblCheckbox">Fluxo paliativo?</label>
+                            <input id="chkFluxoPaliativo" type="checkbox" class="js-switch">
+
+                            @*<labe class="lblCheckbox">Tem demanda legal?</labe>
+                            @Html.CheckBoxFor(model => model.DemandaLegal, new { @class = "js-switch", data_color = "#009efb" })*@
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <div id="divFileUploadFluxoPaliativo">
+                            <label style="visibility: hidden;"> Espaço </label>
+                            <input type="file" id="ProjetoDocumentoPaliativo" name="ProjetoDocumentoPaliativo" class="form-control" />
+                            <span id="erroSpanProjetoDocumentoPaliativo" class="collapse field-validation-valid text-danger" data-valmsg-for="Arquivo" data-valmsg-replace="true">O campo Documento Paliativo é obrigatório.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IdUsuarioPontoFocal, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.IdUsuarioPontoFocal
+                            , Model.lstUsuarioPontoFocalViewModel as IEnumerable<SelectListItem>
+                            , htmlAttributes: new { @class = "form-control todo-taskbody-tags" })
+                        <span id="erroSpanUsuarioPontoFocal" class="erro field-validation-valid text-danger small">O campo Usuário Ponto Focal é obrigatório.</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProjetoNivelOY, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.ProjetoNivelOY
+                            , Model.lstEnumNivel as IEnumerable<SelectListItem>
+                            , htmlAttributes: new { @class = "form-control todo-taskbody-tags" })
+                        <span id="erroSpanProjetoNivelOY" class="erro field-validation-valid text-danger small">O campo Nível da OY é obrigatório.</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataLegal, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.DataLegal, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                        <span id="erroSpanDataLegal" class="erro field-validation-valid text-danger small">O campo Data Legal é obrigatório.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="button-group float-right">
+                        <input type="submit" class="btn btn-success" value="Salvar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

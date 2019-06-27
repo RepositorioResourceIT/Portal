@@ -1,0 +1,129 @@
+﻿@model Itau.PO.UI.MVC.ViewModel.TemplateDocumentoViewModel
+
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        @*@using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", OnBegin = "return ValidarCampos()", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }, new { enctype = "multipart/form-data", id = "frmFileUpload", name = "frmFileUpload" }))*@
+        @using (Html.BeginForm("Index", "Template", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmFileUpload", name = "frmFileUpload" }))
+        {
+            @*@Html.HiddenFor(m => m.TemplateCategoria.IdCategoria)*@
+            @Html.Hidden("TemplateCategoria.IdCategoria", Model.TemplateCategoria.IdCategoria)
+            @Html.Hidden("IdTemplateDocumento", Model.IdTemplateDocumento)
+            @Html.Hidden("DataInclusao", Model.DataInclusao)
+            @Html.Hidden("IdUsuarioCriacao", Model.IdUsuarioCriacao)
+            @Html.Hidden("NomeOriginal", Model.NomeOriginal)
+            @Html.Hidden("Extensao", Model.Extensao)
+            @Html.Hidden("Tamanho", Model.Tamanho)
+            @Html.Hidden("ContentType", Model.ContentType)
+            @Html.Hidden("TemplateDocumentoBin", Model.TemplateDocumentoBin)
+
+            <div class="modal-header">
+                <h4 class="modal-title">@Model.TemplateCategoria.Nome</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="message-text" class="control-label">Nome do arquivo:</label>
+                    @Html.TextBoxFor(m => m.NomeArquivo, new { @class = "form-control" })
+                    <span id="erroSpanNomeArquivo" class="collapse field-validation-valid text-danger" data-valmsg-for="NomeArquivo" data-valmsg-replace="true">O campo Nome do Arquivo é obrigatório.</span>
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="control-label">Descrição:</label>
+                    @Html.TextAreaFor(m => m.Descricao, new { rows = "5", @class = "form-control" })
+                    <span id="erroSpanDescricao" class="collapse field-validation-valid text-danger" data-valmsg-for="Descricao" data-valmsg-replace="true">O campo Descrição é obrigatório.</span>
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="control-label">Arquivo:</label>
+                    <input type="file" id="ArquivoAnexo" name="ArquivoAnexo" class="form-control" multiple />
+                    <span id="erroSpanArquivo" class="collapse field-validation-valid text-danger" data-valmsg-for="Arquivo" data-valmsg-replace="true">O campo Arquivo é obrigatório.</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-info waves-effect waves-light">Salvar</button>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    $('#frmFileUpload').submit(function () {
+        if (!ValidarCampos()) {
+            return false;
+        }
+
+        var model = new FormData(this);
+        var url = '@Url.Action("FileUpload", "Template")';
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: model,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                swal("Salvo!!!", "Registro salvo com sucesso!!!", "success"
+                    , {
+                        buttons: {
+                            ok: {
+                                text: "OK",
+                                value: "ok",
+                                dangerMode: true,
+                            }
+                        },
+                    }
+                )
+                .then((value) => {
+                    switch (value) {
+                        case "ok":
+                            $('.close').click();
+                            window.location.href = data.redirectUrl;
+                            return false;
+                            break;
+                    }
+                });
+            },
+            error: function (data) {
+                swal("Erro!", data, "error");
+            }
+        });
+
+        return false;
+    });
+
+    function ValidarCampos() {
+        var bValido = true;
+
+        if ($("#NomeArquivo").val().trim() == "") {
+            $("#erroSpanNomeArquivo").css("display", "block");
+            bValido = false;
+        }
+        else {
+            $("#erroSpanNomeArquivo").css("display", "none");
+        }
+
+        if ($("#Descricao").val().trim() == "") {
+            $("#erroSpanDescricao").css("display", "block");
+            bValido = false;
+        }
+        else {
+            $("#erroSpanDescricao").css("display", "none");
+        }
+
+        if ($("#IdTemplateDocumento").val() == undefined
+            || $("#IdTemplateDocumento").val() == null
+            || $("#IdTemplateDocumento").val().trim() == 0
+            || $("#IdTemplateDocumento").val().trim() == "0") {
+
+            if ($("#ArquivoAnexo").val().trim() == "") {
+                $("#erroSpanArquivo").css("display", "block");
+                bValido = false;
+            }
+            else {
+                $("#erroSpanArquivo").css("display", "none");
+            }
+        }
+
+        return bValido;
+    }
+</script>

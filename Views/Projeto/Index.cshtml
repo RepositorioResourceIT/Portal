@@ -1,0 +1,474 @@
+﻿@using Itau.PO.Domain.Enums
+
+@model IEnumerable<Itau.PO.UI.MVC.ViewModel.ProjetoViewModel>
+
+@{
+    ViewBag.Title = "Consultar Projetos";
+}
+@section css{
+    <style>
+        .wrapper {
+            width: 200px;
+            height: 200px;
+            background: #EFEFEF;
+            box-shadow: 1px 1px 10px #999;
+            margin: auto;
+            text-align: center;
+            position: relative;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            padding-top: 5px;
+        }
+        
+        .scroll {
+            overflow-x: auto;
+            overflow-y: auto;
+            white-space: nowrap;
+        }
+
+        div[dir="ltr"], svg, rect {
+            max-height: 440px !important;
+            max-width: 510px !important;
+        }
+
+        rect {
+            /*height: 0%;
+            width: 0%;*/
+            fill: transparent;
+        }
+
+        #dimensaoChart {
+            display: none;
+            width: 45%;
+            height: 40%;
+        }
+
+        .overlay-label {
+            display: block;
+            width: 240px;
+            height: 240px;
+            text-align: center;
+            vertical-align: middle;
+            position: absolute;
+            top: -40px; /* chartArea top  */
+            left: 85px; /* chartArea left */
+            margin-top: 265px;
+            font-size: 70px;
+            color: black;
+        }
+    </style>
+
+}
+
+
+<div id="dimensaoChart"></div>
+
+<div class="container-fluid">
+
+    <div class="row" id="divRow">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+            @*<div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title h-75">Projetos x Riscos</h4>
+                        <div class="flot-chart">
+                            <div id="piechart" style="width: 400px; height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>*@
+
+            @*<div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title h-75">Projetos x Riscos</h4>
+                        <div class="flot-chart">
+                            <div class="flot-chart-content" id="flot-pie-chart"></div>
+                        </div>
+                    </div>
+                </div>*@
+
+            <div class="card">
+                <div class="card-body" id="divCardBody">
+                    <h4 class="card-title h-75">Projetos x Riscos</h4>
+                    <div id="piechart"></div>
+                    <div class="overlay-label">@Model.Count()</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-3">
+            <div class="card">
+                <div class="card-body" id="todosRegistros" data-status="">
+                    <h4 class="card-title" id="todos">Total de registros</h4>
+                    <div class="d-flex">
+                        <div class="align-self-center" id="todos">
+                            <h4 class="font-medium m-b-0"><i class="ti-eraser text-danger"></i> @Model.Count()</h4>
+                        </div>
+                        <div class="ml-auto">
+                            <div id="spark10"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" id="emDesenvolvimento" data-status="@EnumsStatusProjeto.DESENVOLVIMENTO.DescriptionAttr()">
+                        <h4 class="card-title" id="emDev">Desenvolvimento</h4>
+                        <div class="d-flex">
+                            <div class="align-self-center" id="emDev">
+                                @*<span> @Model.Where(c => c.IdProjetoStatus == EnumsProjetoRisco.Risco_atraso.GetHashCode()).Count()</span>*@
+                                <h4 class="font-medium m-b-0"><i class="ti-eraser text-danger"></i> @Model.Where(x => x.IdProjetoStatus == EnumsStatusProjeto.DESENVOLVIMENTO.GetHashCode()).Count()</h4>
+                            </div>
+                            <div class="ml-auto">
+                                <div id="spark10"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" id="emHomologacao" data-status="@EnumsStatusProjeto.HOMOLOGACAO.DescriptionAttr()">
+                        <h4 class="card-title" id="emHom">Homologação</h4>
+                        <div class="d-flex">
+                            <div class="align-self-center" id="emHom">
+                                <h4 class="font-medium m-b-0">
+                                    <i class="ti-eraser text-danger"></i>@Model.Where(c => c.IdProjetoStatus == EnumsStatusProjeto.HOMOLOGACAO.GetHashCode()).Count()
+                                </h4>
+                            </div>
+                            <div class="ml-auto">
+                                <div id="spark10"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        <div id="divFiltros" class="col-lg-3 col-md-3 col-sm-6 col-xs-3 ">
+            <div class="card">
+                <div class="card-body" id="emImplantacao" data-status="@EnumsStatusProjeto.IMNPLANTACAO.DescriptionAttr()">
+                    <h4 class="card-title" id="emImp">Implantação</h4>
+                    <div class="d-flex">
+                        <div class="align-self-center" id="emImp">
+                            <h4 class="font-medium m-b-0"><i class="ti-eraser text-danger"></i> @Model.Where(c => c.IdProjetoStatus == EnumsStatusProjeto.IMNPLANTACAO.GetHashCode()).Count()</h4>
+                        </div>
+                        <div class="ml-auto">
+                            <div id="spark10"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body" id="statusPausado" data-status="@EnumsStatusProjeto.PAUSADO.DescriptionAttr()">
+                    <h4 class="card-title" id="pausado">Pausado</h4>
+                    <div class="d-flex">
+                        <div class="align-self-center" id="pausado">
+                            <h4 class="font-medium m-b-0"><i class="ti-eraser text-danger"></i> @Model.Where(x => x.IdProjetoStatus == EnumsStatusProjeto.PAUSADO.GetHashCode()).Count()</h4>
+                        </div>
+                        <div class="ml-auto">
+                            <div id="spark10"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body" id="statusCancelado" data-status="@EnumsStatusProjeto.CANCELADO.DescriptionAttr()">
+                    <h4 class="card-title" id="cancelado">Cancelados</h4>
+                    <div class="d-flex">
+                        <div class="align-self-center" id="cancelado">
+                            <h4 class="font-medium m-b-0"><i class="ti-eraser text-danger"></i>  @Model.Where(x => x.IdProjetoStatus == EnumsStatusProjeto.CANCELADO.GetHashCode()).Count()</h4>
+                        </div>
+                        <div class="ml-auto">
+                            <div id="spark10"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body" id="finalizado" data-status="@EnumsStatusProjeto.CANCELADO.DescriptionAttr()">
+                    <h4 class="card-title" id="final">Finalizado</h4>
+                    <div class="d-flex">
+                        <div class="align-self-center" id="final">
+                            <h4 class="font-medium m-b-0"><i class="ti-eraser text-danger"></i> @Model.Where(x => x.IdProjetoStatus == EnumsStatusProjeto.CANCELADO.GetHashCode()).Count()</h4>
+                        </div>
+                        <div class="ml-auto">
+                            <div id="spark10"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="card">
+            <div class="card-body" id="emAndamento" data-status="@EnumsStatusProjeto.EM_ANDAMENTO.DescriptionAttr()">
+                <h4 class="card-title" id="emAnd">Em andamento</h4>
+                <div class="d-flex">
+                    <div class="align-self-center" id="emAnd">
+                        <h4 class="font-medium m-b-0"><i class="ti-eraser text-danger"></i> @Model.Where(x => x.IdProjetoStatus == EnumsStatusProjeto.EM_ANDAMENTO.GetHashCode()).Count()</h4>
+                    </div>
+                    <div class="ml-auto">
+                        <div id="spark10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+
+            @*<div id="todosRegistros" data-status="t">
+            <h5 class="text-center cursorPointer" id="todos">Total: @Model.Count()</h5>
+        </div>*@
+
+
+
+            @*<div class="card">
+            <div class="card-body" id="todosRegistros" data-status="">
+                <h4 class="card-title" id="todos">Total de registros</h4>
+                <div class="d-flex">
+                    <div class="align-self-center" id="todos">
+                        <h4 class="font-medium m-b-0"><i class="ti-eraser text-danger"></i> @Model.Count()</h4>
+                    </div>
+                    <div class="ml-auto">
+                        <div id="spark10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        </div>
+        </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="buttons">
+                <button id="sample_editable_1_new" class="btn waves-effect waves-light btn-info float-right">
+                    Novo
+                    <i class="fa fa-plus"></i>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive m-t-40">
+                        <table id="tbProjeto" class="display nowrap table table-hover table-striped table-bordered tabela" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Código </th>
+                                    <th>Projeto</th>
+                                    <th>Data Inclusão</th>
+                                    <th>Nome Status</th>
+                                    <th>Nome Risco</th>
+                                    <th class="text-nowrap">Action</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model)
+                            {
+                            <tr id="@item.IdProjeto">
+                                <td>
+                                    @Html.DisplayFor(x => item.IdProjeto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => item.NomeProjeto)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(x => item.DataInclusao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => item.NomeStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(x => item.NomeRisco)
+                                </td>
+                                <td>
+                                    @Html.ActionLink(" ", "EditArea", new { id = item.IdProjeto }, new { @class = "fa fa-pencil text-inverse m-r-10" })
+                                </td>
+                            </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+
+    <script src="~/Content/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    @Scripts.Render("~/Content/assets/plugins/bootstrap-table/dist/locale/bootstrap-table-pt-BR.js")
+    <script type="text/javascripFprojt" src="~/Scripts/Portal/jsPerfil.js">
+    </script>
+    <script src="~/Content/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/js/buttons.flash.min.js"></script>
+    <script src="~/Content/js/jszip.min.js"></script>
+    <script src="~/Content/js/pdfmake.min.js"></script>
+    <script src="~/Content/js/vfs_fonts.js"></script>
+    <script src="~/Content/js/buttons.html5.min.js"></script>
+    <script src="~/Content/js/buttons.print.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="~/Content/assets/plugins/flot/excanvas.js"></script>
+    <script src="~/Content/assets/plugins/flot/jquery.flot.js"></script>
+    <script src="~/Content/assets/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="~/Content/assets/plugins/flot/jquery.flot.time.js"></script>
+    <script src="~/Content/assets/plugins/flot/jquery.flot.stack.js"></script>
+    <script src="~/Content/assets/plugins/flot/jquery.flot.crosshair.js"></script>
+    <script src="~/Content/assets/plugins/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+
+    <script src="~/Content/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+    <script type="text/javascript" src="~/Scripts/Portal/jsProjetos.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#tbProjeto').DataTable();
+
+
+
+                $('#emDev').click(function (event) {
+                    var result = "";
+                    if ($(event.target).is("#emDev, #emDev h4 ")) {
+                        result = $("#emDesenvolvimento").attr("data-status");
+                        Fitros(result);
+                    }
+                });
+
+                $('#emHom').click(function (event) {
+                    var result = "";
+                    if ($(event.target).is("#emHom, #emHom h4 ")) {
+                        result = $("#emHomologacao").attr("data-status");
+                        Fitros(result);
+
+                    }
+                });
+
+                $('#emImp').click(function (event) {
+                    var result = "";
+                    if ($(event.target).is("#emImp, #emImp h4 ")) {
+                        result = $("#emImplantacao").attr("data-status");
+                        Fitros(result);
+
+                    }
+                });
+
+                $('#emAndamento').click(function (event) {
+                    var result = "";
+                    if ($(event.target).is("#emAnd, #emAnd h4 ")) {
+                        result = $("#emAndamento").attr("data-status");
+                        Fitros(result);
+
+                    }
+                });
+
+
+                $('#statusPausado').click(function (event) {
+                    var result = "";
+                    if ($(event.target).is("#pausado, #pausado h4 ")) {
+                        result = $("#statusPausado").attr("data-status");
+                        Fitros(result);
+
+                    }
+                });
+
+                $('#statusCancelado').click(function (event) {
+                    var result = "";
+                    if ($(event.target).is("#cancelado, #cancelado h4 ")) {
+                        result = $("#statusCancelado").attr("data-status");
+                        Fitros(result);
+
+                    }
+
+
+                });
+
+            $('#todosRegistros').click(function (event) {
+                if ($(event.target).is("#todos, #todos h4 ")) {
+                    location.reload();
+
+                }
+            });
+
+
+
+            function Fitros(result) {
+                table
+                    .column(3)
+                    .search(result)
+                    .draw();
+
+            }
+
+            function TodosRegistros() {
+                table
+                    .column()
+                    .search('')
+                    .draw();
+            }
+
+
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+
+                var risco1 = @Model.Where(x => x.IdRisco == 1).Count();
+                var risco2 = @Model.Where(x => x.IdRisco == 2).Count();
+                var risco3 = @Model.Where(x => x.IdRisco == 3).Count();
+                var risco4 = @Model.Where(x => x.IdRisco == 4).Count();
+                var risco5 = @Model.Where(x => x.IdRisco == 5).Count();
+
+                var data = google.visualization.arrayToDataTable([
+                    ['Risco', 'Valor'],
+                    ['Risco 1', risco1 ],
+                    ['Risco 2', risco2 ],
+                    ['Risco 3', risco3 ],
+                    ['Risco 4', risco4 ],
+                    ['Risco 5', risco5 ]
+
+                ]);
+
+                var options = {
+                    title: ''
+                    , pieHole: 0.4
+                    , chartArea: { left: 10, top: 0, width: '100%', height: '80%' }
+                    //, legend: { position: 'bottom' }
+                    //, chartArea: { left: 10, top: 0 }
+                    //,'width': '900'
+                    //, 'height': '1000'
+                    //, width: $("#divChart").width()
+                    //, height: $("#divChart").height()*0.75
+                    //, width: $(window).width()
+                    //, height: $(window).height() * 0.75
+                    //, width: $('.container-fluid').width()-300
+                    //, height: $('.container-fluid').height()*0.8
+                    , width: $('#dimensaoChart').width()
+                    , height: $('#dimensaoChart').height()
+              
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+                chart.draw(data, options);
+            }
+
+            function resize () {
+                drawChart();
+            }
+
+            if (window.addEventListener) {
+                window.addEventListener('resize', resize);
+            }
+            else {
+                window.attachEvent('onresize', resize);
+            }
+        });
+
+    </script>
+}
+
+
+
